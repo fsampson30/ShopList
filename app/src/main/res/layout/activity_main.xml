@@ -1,25 +1,105 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".view.MainActivity">
+    android:background="@color/black"
+    android:orientation="horizontal"
+    android:padding="16dp">
 
-    <TextView
-        android:id="@+id/txtMainActivityTodaysDate"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Hello World!"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/shape_white"
+        tools:context=".view.MainActivity">
 
-    <TextView
-        android:id="@+id/txtMainActivityLastShopDate"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="TextView" />
+        <TextView
+            android:id="@+id/txtMainActivityTodaysDate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/todays_date"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@id/txtMainActivityLastShopValue"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toLeftOf="@id/txtMainActivityLastShopDate"
+            app:layout_constraintTop_toTopOf="parent" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <TextView
+            android:id="@+id/txtMainActivityLastShopDate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/last_shop_date"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@id/txtMainActivityLastShopValue"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/txtMainActivityTodaysDate"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/txtMainActivityLastShopValue"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/last_shop_value"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toTopOf="@id/imgViewMainActivityRetrieveList"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/txtMainActivityTodaysDate"
+            app:layout_constraintTop_toBottomOf="@+id/txtMainActivityLastShopDate" />
+
+        <ImageView
+            android:id="@+id/imgViewMainActivityNewList"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:src="@drawable/ic_new_list"
+            app:layout_constraintBottom_toTopOf="@+id/imgViewMainActivityItems"
+            app:layout_constraintEnd_toStartOf="@+id/txtMainActivityLastShopValue"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/txtMainActivityLastShopValue" />
+
+        <ImageView
+            android:id="@+id/imgViewMainActivityRetrieveList"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:src="@drawable/ic_retrieve_list"
+            app:layout_constraintBottom_toTopOf="@id/imgViewMainActivityHistoric"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/imgViewMainActivityNewList"
+            app:layout_constraintTop_toBottomOf="@+id/txtMainActivityLastShopValue" />
+
+        <ImageView
+            android:id="@+id/imgViewMainActivityItems"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:src="@drawable/ic_item"
+            app:layout_constraintBottom_toTopOf="@id/imgViewMainActivityMarkets"
+            app:layout_constraintEnd_toStartOf="@+id/txtMainActivityLastShopValue"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/imgViewMainActivityRetrieveList" />
+
+        <ImageView
+            android:id="@+id/imgViewMainActivityHistoric"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:src="@drawable/ic_historic"
+            app:layout_constraintBottom_toTopOf="@id/imgViewMainActivityMarkets"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/imgViewMainActivityNewList"
+            app:layout_constraintTop_toBottomOf="@+id/imgViewMainActivityRetrieveList" />
+
+        <ImageView
+            android:id="@+id/imgViewMainActivityMarkets"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:src="@drawable/ic_markets"
+            android:layout_marginBottom="32dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/txtMainActivityLastShopValue"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/imgViewMainActivityItems" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</LinearLayout>
