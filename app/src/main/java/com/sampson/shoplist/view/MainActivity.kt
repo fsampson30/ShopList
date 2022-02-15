@@ -19,7 +19,7 @@ class MainActivity : AppCompatActivity() {
         val imgHistoric: ImageView = findViewById(R.id.imgViewMainActivityHistoric)
         val imgMarkets: ImageView = findViewById(R.id.imgViewMainActivityMarkets)
 
-        var txtTodayDate : TextView = findViewById(R.id.txtMainActivityTodaysDate)
+        val txtTodayDate : TextView = findViewById(R.id.txtMainActivityTodaysDate)
 
         txtTodayDate.text = getTodayDate()
 
