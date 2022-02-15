@@ -3,8 +3,10 @@ package com.sampson.shoplist.view
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.ImageView
+import android.widget.TextView
 import android.widget.Toast
 import com.sampson.shoplist.R
+import com.sampson.shoplist.controller.DateUtils.getTodayDate
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -16,6 +18,11 @@ class MainActivity : AppCompatActivity() {
         val imgItems: ImageView = findViewById(R.id.imgViewMainActivityItems)
         val imgHistoric: ImageView = findViewById(R.id.imgViewMainActivityHistoric)
         val imgMarkets: ImageView = findViewById(R.id.imgViewMainActivityMarkets)
+
+        var txtTodayDate : TextView = findViewById(R.id.txtMainActivityTodaysDate)
+
+        txtTodayDate.text = getTodayDate()
+
 
         imgNewList.setOnClickListener {
             Toast.makeText(this, "Testing new list",Toast.LENGTH_SHORT).show()
