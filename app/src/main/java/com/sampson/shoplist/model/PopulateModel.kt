@@ -9,7 +9,9 @@ class PopulateModel {
         categories.add(Category(3,"Bebidas"))
         categories.add(Category(4,"Laticínios"))
         categories.add(Category(5,"Farináceos"))
-        categories.add(Category(6,"Outros"))
+        categories.add(Category(6,"Temperos"))
+        categories.add(Category(7,"Padaria"))
+        categories.add(Category(8,"Outros"))
         return categories
     }
 
@@ -25,6 +27,11 @@ class PopulateModel {
         items.add(Item(8,"Picanha",1))
         items.add(Item(9,"Queijo Prato",4))
         items.add(Item(10,"Suco Natural",3))
+        items.add(Item(11,"Goiabada",8))
+        items.add(Item(12,"Sucrilhos",2))
+        items.add(Item(13,"Creme de Leite",8))
+        items.add(Item(14,"Macarrão",8))
+        items.add(Item(15,"Pão de Forma",3))
         return items
     }
 }
