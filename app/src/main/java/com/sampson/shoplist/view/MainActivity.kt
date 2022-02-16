@@ -1,5 +1,6 @@
 package com.sampson.shoplist.view
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.ImageView
@@ -33,7 +34,8 @@ class MainActivity : AppCompatActivity() {
         }
 
         imgItems.setOnClickListener {
-            Toast.makeText(this, "Testing items",Toast.LENGTH_SHORT).show()
+            val intent = Intent(baseContext,ItemsActivity::class.java)
+            startActivity(intent)
         }
 
         imgHistoric.setOnClickListener {

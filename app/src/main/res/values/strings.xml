@@ -3,4 +3,6 @@
     <string name="todays_date">14/02/2022</string>
     <string name="last_shop_date">01/01/2022</string>
     <string name="last_shop_value">R$ 500,00</string>
+    <string name="adicionar_item">Adicionar Item</string>
+    <string name="adicionar_categoria">Adicionar Categoria</string>
 </resources>
