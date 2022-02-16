@@ -6,4 +6,5 @@
     <string name="adicionar_item">Adicionar Item</string>
     <string name="adicionar_categoria">Adicionar Categoria</string>
     <string name="teste">Teste</string>
+    <string name="procurar_itens">Procurar itens...</string>
 </resources>

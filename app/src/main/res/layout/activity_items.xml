@@ -23,15 +23,16 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
-
-            android:text="@string/adicionar_item" />
+            android:text="@string/adicionar_item"
+            style="?android:attr/buttonBarStyle"/>
 
         <Button
             android:id="@+id/btnItemsActivityAddCategory"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="8dp"
-            android:text="@string/adicionar_categoria" />
+            android:layout_marginStart="8dp"
+            android:text="@string/adicionar_categoria"
+            style="?android:attr/buttonBarStyle"/>
 
     </LinearLayout>
 
@@ -65,7 +66,8 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="4dp"
         android:layout_marginBottom="4dp"
-        android:hint="Procurar itens..."
+        android:inputType="text"
+        android:hint="@string/procurar_itens"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
