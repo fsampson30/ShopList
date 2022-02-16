@@ -23,14 +23,14 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
-            android:layout_marginRight="16dp"
+
             android:text="@string/adicionar_item" />
 
         <Button
             android:id="@+id/btnItemsActivityAddCategory"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="16dp"
+            android:layout_marginLeft="8dp"
             android:text="@string/adicionar_categoria" />
 
     </LinearLayout>

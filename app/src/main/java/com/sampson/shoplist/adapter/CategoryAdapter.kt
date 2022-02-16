@@ -43,6 +43,8 @@ class CategoryAdapter(
             5 -> R.drawable.flour
             6 -> R.drawable.spices
             7 -> R.drawable.bread
+            8 -> R.drawable.fish
+            9 -> R.drawable.cleaning
             else -> R.drawable.others
         }
     }

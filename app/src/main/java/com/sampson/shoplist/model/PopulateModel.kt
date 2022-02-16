@@ -11,7 +11,9 @@ class PopulateModel {
         categories.add(Category(5,"Farináceos"))
         categories.add(Category(6,"Temperos"))
         categories.add(Category(7,"Padaria"))
-        categories.add(Category(8,"Outros"))
+        categories.add(Category(8,"Peixaria"))
+        categories.add(Category(9,"Limpeza"))
+        categories.add(Category(10,"Outros"))
         return categories
     }
 
