@@ -3,7 +3,7 @@ package com.sampson.shoplist.model
 class PopulateModel {
 
     fun populateCategory() : ArrayList<Category>{
-        var categories = arrayListOf<Category>()
+        val categories = arrayListOf<Category>()
         categories.add(Category(1,"Açougue"))
         categories.add(Category(2,"Cereais"))
         categories.add(Category(3,"Bebidas"))
@@ -18,7 +18,7 @@ class PopulateModel {
     }
 
     fun populateItem() : ArrayList<Item> {
-        var items = arrayListOf<Item>()
+        val items = arrayListOf<Item>()
         items.add(Item(1,"Arroz",2))
         items.add(Item(2,"Feijão",2))
         items.add(Item(3,"Sal",2))

@@ -4,7 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/black"
     android:orientation="horizontal"
     android:padding="16dp">
 
@@ -74,7 +73,7 @@
             android:id="@+id/imgViewMainActivityItems"
             android:layout_width="80dp"
             android:layout_height="80dp"
-            android:src="@drawable/shelves"
+            android:src="@drawable/stand"
             app:layout_constraintBottom_toTopOf="@id/imgViewMainActivityMarkets"
             app:layout_constraintEnd_toStartOf="@+id/txtMainActivityLastShopValue"
             app:layout_constraintStart_toStartOf="parent"
