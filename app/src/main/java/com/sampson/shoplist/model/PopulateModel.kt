@@ -29,11 +29,11 @@ class PopulateModel {
         items.add(Item(8,"Picanha",1))
         items.add(Item(9,"Queijo Prato",4))
         items.add(Item(10,"Suco Natural",3))
-        items.add(Item(11,"Goiabada",8))
+        items.add(Item(11,"Goiabada",10))
         items.add(Item(12,"Sucrilhos",2))
-        items.add(Item(13,"Creme de Leite",8))
-        items.add(Item(14,"Macarrão",8))
-        items.add(Item(15,"Pão de Forma",3))
+        items.add(Item(13,"Creme de Leite",4))
+        items.add(Item(14,"Macarrão",10))
+        items.add(Item(15,"Pão de Forma",7))
         return items
     }
 }

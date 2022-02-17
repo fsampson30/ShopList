@@ -8,6 +8,8 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.sampson.shoplist.R
+import com.sampson.shoplist.controller.ImageResources
+import com.sampson.shoplist.controller.ImageResources.getImageResource
 import com.sampson.shoplist.model.Category
 
 
@@ -29,23 +31,8 @@ class CategoryAdapter(
 
     override fun onBindViewHolder(holder: CategoryViewHolder, position: Int) {
         holder.txtCategory.text = categories[position].category_name
-        holder.imgCategory.setImageResource(getImageResource(position))
+        holder.imgCategory.setImageResource(getImageResource(categories[position].id))
     }
 
     override fun getItemCount() = categories.size
-
-    private fun getImageResource(position: Int): Int {
-        return when (categories[position].id) {
-            1 -> R.drawable.meat
-            2 -> R.drawable.cereal
-            3 -> R.drawable.drinks
-            4 -> R.drawable.milk
-            5 -> R.drawable.flour
-            6 -> R.drawable.spices
-            7 -> R.drawable.bread
-            8 -> R.drawable.fish
-            9 -> R.drawable.cleaning
-            else -> R.drawable.others
-        }
-    }
 }
