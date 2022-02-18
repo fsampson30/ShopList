@@ -14,8 +14,9 @@ import com.sampson.shoplist.model.Item
 
 class ItemAdapter (
     private val context: Context,
-    private var itemsList: ArrayList<Item>
         ) : RecyclerView.Adapter<ItemAdapter.ItemViewHolder>(){
+
+    private var itemsList= mutableListOf<Item>()
 
     class ItemViewHolder (itemView: View) : RecyclerView.ViewHolder(itemView) {
         val txtItemName: TextView = itemView.findViewById(R.id.txtItemCardItemName)
@@ -33,4 +34,9 @@ class ItemAdapter (
     }
 
     override fun getItemCount() = itemsList.size
+
+    fun submitList(items: MutableList<Item>) {
+        this.itemsList = items
+        notifyDataSetChanged()
+    }
 }

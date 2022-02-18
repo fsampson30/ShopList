@@ -1,6 +1,6 @@
 package com.sampson.shoplist.model
 
-class PopulateModel {
+object PopulateModel {
 
     fun populateCategory() : ArrayList<Category>{
         val categories = arrayListOf<Category>()
