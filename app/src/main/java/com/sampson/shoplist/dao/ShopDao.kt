@@ -18,6 +18,9 @@ interface ShopDao {
     @Query("SELECT * FROM table_item")
     fun getAllItems(): Flow<MutableList<Item>>
 
+    @Query("SELECT * FROM table_item where name like :text")
+    fun getItems(text: String): Flow<MutableList<Item>>
+
     @Query("SELECT * FROM table_category")
     fun getAllCategories(): Flow<MutableList<Category>>
 

@@ -18,4 +18,8 @@ class ShopRepository(private val shopDao: ShopDao) {
     suspend fun insertCategory(category: Category){
         shopDao.insertCategory(category)
     }
+
+    fun selectItem(text: String) : Flow<MutableList<Item>>{
+        return shopDao.getItems(text)
+    }
 }

@@ -1,27 +1,29 @@
 package com.sampson.shoplist.view
 
 import android.content.DialogInterface
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.InputType
+import android.view.inputmethod.EditorInfo
+import android.view.inputmethod.InputMethodManager
 import android.widget.Button
 import android.widget.EditText
+import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AlertDialog
+import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.RecyclerView
-import com.sampson.shoplist.viewmodel.ItemViewModel
-import com.sampson.shoplist.viewmodel.ItemViewModelFactory
 import com.sampson.shoplist.R
 import com.sampson.shoplist.adapter.CategoryAdapter
 import com.sampson.shoplist.adapter.ItemAdapter
 import com.sampson.shoplist.dao.ShopApplication
-import com.sampson.shoplist.dao.ShopRepository
 import com.sampson.shoplist.model.Category
 import com.sampson.shoplist.model.Item
-import com.sampson.shoplist.model.PopulateModel.populateCategory
 import com.sampson.shoplist.viewmodel.CategoryViewModel
 import com.sampson.shoplist.viewmodel.CategoryViewModelFactory
+import com.sampson.shoplist.viewmodel.ItemViewModel
+import com.sampson.shoplist.viewmodel.ItemViewModelFactory
+
 
 class ItemsActivity : AppCompatActivity() {
 
@@ -39,6 +41,7 @@ class ItemsActivity : AppCompatActivity() {
 
         val btnAddItem: Button = findViewById(R.id.btnItemsActivityAddItem)
         val btnAddCategory: Button = findViewById(R.id.btnItemsActivityAddCategory)
+        val txtSearchItem: TextView = findViewById(R.id.txtItemActivityItemSearch)
 
         val categoryAdapter = CategoryAdapter(baseContext)
         val rvCategory: RecyclerView = findViewById(R.id.rvItemActivityCategory)
@@ -101,6 +104,23 @@ class ItemsActivity : AppCompatActivity() {
                     }
                 })
             }.show()
+        }
+
+        txtSearchItem.setOnEditorActionListener { v, actionId, event ->
+            if (actionId == EditorInfo.IME_ACTION_DONE) {
+                val inputManager: InputMethodManager = getSystemService(
+                    INPUT_METHOD_SERVICE
+                ) as InputMethodManager
+                inputManager.hideSoftInputFromWindow(txtSearchItem.windowToken, 0)
+
+                itemViewModel.selectItem("%${txtSearchItem.text.toString()}%").observe(this){ items ->
+                    items.let { itemAdapter.submitList(it) }
+                }
+                true
+            } else {
+                Toast.makeText(baseContext, "Item não encontrado", Toast.LENGTH_SHORT).show()
+                false
+            }
         }
     }
 }

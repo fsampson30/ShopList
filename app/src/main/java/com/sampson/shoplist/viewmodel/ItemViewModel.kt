@@ -13,6 +13,9 @@ class ItemViewModel(private val repository: ShopRepository) : ViewModel() {
     fun insertItem(item: Item) = viewModelScope.launch {
         repository.insertItem(item)
     }
+
+    fun selectItem(text: String) = repository.selectItem(text).asLiveData()
+
 }
 
 class ItemViewModelFactory(private val repository: ShopRepository) : ViewModelProvider.Factory {
