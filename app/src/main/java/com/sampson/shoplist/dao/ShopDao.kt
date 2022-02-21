@@ -26,4 +26,10 @@ interface ShopDao {
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     suspend fun insertAllCategories(category: MutableList<Category> = populateCategory())
+
+    @Insert(onConflict = OnConflictStrategy.IGNORE)
+    suspend fun insertItem(item: Item)
+
+    @Insert(onConflict = OnConflictStrategy.IGNORE)
+    suspend fun insertCategory(category: Category)
 }

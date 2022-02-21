@@ -17,6 +17,7 @@ import com.sampson.shoplist.adapter.CategoryAdapter
 import com.sampson.shoplist.adapter.ItemAdapter
 import com.sampson.shoplist.dao.ShopApplication
 import com.sampson.shoplist.dao.ShopRepository
+import com.sampson.shoplist.model.Category
 import com.sampson.shoplist.model.PopulateModel.populateCategory
 import com.sampson.shoplist.viewmodel.CategoryViewModel
 import com.sampson.shoplist.viewmodel.CategoryViewModelFactory
@@ -85,7 +86,12 @@ class ItemsActivity : AppCompatActivity() {
                     if (input.text.isEmpty()) {
                         return@OnClickListener
                     } else {
-                        Toast.makeText(context, input.text.toString(), Toast.LENGTH_SHORT).show()
+                        val category = Category(0,input.text.toString())
+                        categotyViewModel.insertCategory(category)
+                        categotyViewModel.allCategories.observe(this@ItemsActivity){ categories ->
+                            categories.let { categoryAdapter.submitList(it) }
+                        }
+                        Toast.makeText(context, "Categoria: ${input.text.toString()} adicionada corretamente.", Toast.LENGTH_SHORT).show()
                     }
                 })
             }.show()

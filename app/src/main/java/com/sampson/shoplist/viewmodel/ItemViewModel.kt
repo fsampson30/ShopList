@@ -1,16 +1,18 @@
 package com.sampson.shoplist.viewmodel
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.asLiveData
+import androidx.lifecycle.*
 import com.sampson.shoplist.dao.ShopRepository
 import com.sampson.shoplist.model.Item
+import kotlinx.coroutines.launch
 import java.lang.IllegalArgumentException
 
 class ItemViewModel(private val repository: ShopRepository) : ViewModel() {
 
     val allItems: LiveData<MutableList<Item>> = repository.allItems.asLiveData()
+
+    fun insertItem(item: Item) = viewModelScope.launch {
+        repository.insertItem(item)
+    }
 }
 
 class ItemViewModelFactory(private val repository: ShopRepository) : ViewModelProvider.Factory {
