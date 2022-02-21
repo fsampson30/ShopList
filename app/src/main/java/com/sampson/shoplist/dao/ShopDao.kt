@@ -7,6 +7,7 @@ import androidx.room.Query
 import com.sampson.shoplist.model.Category
 import com.sampson.shoplist.model.Item
 import com.sampson.shoplist.model.PopulateModel
+import com.sampson.shoplist.model.PopulateModel.populateCategory
 import com.sampson.shoplist.model.PopulateModel.populateItem
 import kotlinx.coroutines.flow.Flow
 
@@ -22,4 +23,7 @@ interface ShopDao {
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     suspend fun insertAllItems(items: MutableList<Item> = populateItem())
+
+    @Insert(onConflict = OnConflictStrategy.IGNORE)
+    suspend fun insertAllCategories(category: MutableList<Category> = populateCategory())
 }

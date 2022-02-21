@@ -8,16 +8,16 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.sampson.shoplist.R
-import com.sampson.shoplist.controller.ImageResources
 import com.sampson.shoplist.controller.ImageResources.getImageResource
 import com.sampson.shoplist.model.Category
 
 
 class CategoryAdapter(
-    private val context: Context,
-    private var categories: ArrayList<Category>
+    private val context: Context
 
 ) : RecyclerView.Adapter<CategoryAdapter.CategoryViewHolder>() {
+
+    private var categories = mutableListOf<Category>()
 
     class CategoryViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val txtCategory: TextView = itemView.findViewById(R.id.txtCategoryCardName)
@@ -35,4 +35,9 @@ class CategoryAdapter(
     }
 
     override fun getItemCount() = categories.size
+
+    fun submitList(category: MutableList<Category>) {
+        this.categories = category
+        notifyDataSetChanged()
+    }
 }

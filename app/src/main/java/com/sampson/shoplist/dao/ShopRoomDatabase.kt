@@ -50,6 +50,7 @@ abstract class ShopRoomDatabase : RoomDatabase() {
 
         suspend fun populateDatabase(shopDao: ShopDao){
             shopDao.insertAllItems()
+            shopDao.insertAllCategories()
         }
 
     }

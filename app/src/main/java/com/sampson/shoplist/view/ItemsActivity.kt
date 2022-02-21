@@ -4,26 +4,31 @@ import android.content.DialogInterface
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.InputType
-import android.view.View
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AlertDialog
 import androidx.recyclerview.widget.RecyclerView
-import com.sampson.shoplist.ItemViewModel
-import com.sampson.shoplist.ItemViewModelFactory
+import com.sampson.shoplist.viewmodel.ItemViewModel
+import com.sampson.shoplist.viewmodel.ItemViewModelFactory
 import com.sampson.shoplist.R
 import com.sampson.shoplist.adapter.CategoryAdapter
 import com.sampson.shoplist.adapter.ItemAdapter
 import com.sampson.shoplist.dao.ShopApplication
-import com.sampson.shoplist.model.PopulateModel
+import com.sampson.shoplist.dao.ShopRepository
 import com.sampson.shoplist.model.PopulateModel.populateCategory
+import com.sampson.shoplist.viewmodel.CategoryViewModel
+import com.sampson.shoplist.viewmodel.CategoryViewModelFactory
 
 class ItemsActivity : AppCompatActivity() {
 
     private val itemViewModel: ItemViewModel by viewModels {
         ItemViewModelFactory((application as ShopApplication).repository)
+    }
+
+    private val categotyViewModel: CategoryViewModel by viewModels {
+        CategoryViewModelFactory((application as ShopApplication).repository)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -33,9 +38,7 @@ class ItemsActivity : AppCompatActivity() {
         val btnAddItem: Button = findViewById(R.id.btnItemsActivityAddItem)
         val btnAddCategory: Button = findViewById(R.id.btnItemsActivityAddCategory)
 
-        val category = populateCategory()
-
-        val categoryAdapter = CategoryAdapter(baseContext, category)
+        val categoryAdapter = CategoryAdapter(baseContext)
         val rvCategory: RecyclerView = findViewById(R.id.rvItemActivityCategory)
         rvCategory.adapter = categoryAdapter
 
@@ -45,6 +48,11 @@ class ItemsActivity : AppCompatActivity() {
 
         itemViewModel.allItems.observe(this) { items ->
             items.let { itemAdapter.submitList(it) }
+        }
+
+        categotyViewModel.allCategories.observe(this){ categories ->
+            categories.let { categoryAdapter.submitList(it) }
+
         }
 
         btnAddItem.setOnClickListener {
