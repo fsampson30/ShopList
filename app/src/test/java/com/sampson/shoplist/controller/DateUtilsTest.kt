@@ -7,7 +7,7 @@ import org.junit.runners.JUnit4
 
 @RunWith(JUnit4::class)
 class DateUtilsTest {
-    val date = DateUtils
+    private val date = DateUtils
 
     @Test
     fun getDate(){
