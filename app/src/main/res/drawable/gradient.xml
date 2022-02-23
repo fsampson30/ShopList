@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android" >
+    <item>
+        <bitmap android:src="@drawable/whiteboard"/>
+    </item>
+    <item>
+        <shape xmlns:android="http://schemas.android.com/apk/res/android">
+            <gradient android:angle="90" android:startColor="@color/blue_200" android:centerColor="@color/blue_200" android:endColor="@color/white"/>
+        </shape>
+    </item>
+</layer-list>

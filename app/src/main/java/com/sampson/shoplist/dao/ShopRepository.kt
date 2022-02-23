@@ -22,4 +22,8 @@ class ShopRepository(private val shopDao: ShopDao) {
     fun selectItem(text: String) : Flow<MutableList<Item>>{
         return shopDao.getItems(text)
     }
+
+    fun selectItemByCategory(id: Int) : Flow<MutableList<Item>>{
+        return shopDao.getItemsByCategory(id)
+    }
 }

@@ -16,6 +16,8 @@ class ItemViewModel(private val repository: ShopRepository) : ViewModel() {
 
     fun selectItem(text: String) = repository.selectItem(text).asLiveData()
 
+    fun selectItemByCategory(id: Int) = repository.selectItemByCategory(id).asLiveData()
+
 }
 
 class ItemViewModelFactory(private val repository: ShopRepository) : ViewModelProvider.Factory {
