@@ -43,7 +43,12 @@ class ItemsActivity : AppCompatActivity() {
         val btnAddCategory: Button = findViewById(R.id.btnItemsActivityAddCategory)
         val txtSearchItem: TextView = findViewById(R.id.txtItemActivityItemSearch)
 
-        val categoryAdapter = CategoryAdapter(baseContext)
+        val categoryAdapter = CategoryAdapter(baseContext, object : CategoryAdapter.CategoryClickListener{
+            override fun onCategoryClick(category: Category) {
+                Toast.makeText(this@ItemsActivity, category.category_name, Toast.LENGTH_SHORT).show()
+            }
+
+        })
         val rvCategory: RecyclerView = findViewById(R.id.rvItemActivityCategory)
         rvCategory.adapter = categoryAdapter
 

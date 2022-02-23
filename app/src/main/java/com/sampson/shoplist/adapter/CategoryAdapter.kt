@@ -13,7 +13,8 @@ import com.sampson.shoplist.model.Category
 
 
 class CategoryAdapter(
-    private val context: Context
+    private val context: Context,
+    private val clickListener: CategoryClickListener
 
 ) : RecyclerView.Adapter<CategoryAdapter.CategoryViewHolder>() {
 
@@ -32,6 +33,7 @@ class CategoryAdapter(
     override fun onBindViewHolder(holder: CategoryViewHolder, position: Int) {
         holder.txtCategory.text = categories[position].category_name
         holder.imgCategory.setImageResource(getImageResource(categories[position].id))
+        holder.itemView.setOnClickListener { clickListener.onCategoryClick(categories[position]) }
     }
 
     override fun getItemCount() = categories.size
@@ -39,5 +41,9 @@ class CategoryAdapter(
     fun submitList(category: MutableList<Category>) {
         this.categories = category
         notifyDataSetChanged()
+    }
+
+    interface CategoryClickListener {
+        fun onCategoryClick(category: Category)
     }
 }
