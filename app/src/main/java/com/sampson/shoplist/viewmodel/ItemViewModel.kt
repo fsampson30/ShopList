@@ -18,6 +18,10 @@ class ItemViewModel(private val repository: ShopRepository) : ViewModel() {
 
     fun selectItemByCategory(id: Int) = repository.selectItemByCategory(id).asLiveData()
 
+    fun deleteItem(item: Item) = viewModelScope.launch {
+        repository.deleteItem(item)
+    }
+
 }
 
 class ItemViewModelFactory(private val repository: ShopRepository) : ViewModelProvider.Factory {

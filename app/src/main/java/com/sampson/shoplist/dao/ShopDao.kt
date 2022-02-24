@@ -1,9 +1,6 @@
 package com.sampson.shoplist.dao
 
-import androidx.room.Dao
-import androidx.room.Insert
-import androidx.room.OnConflictStrategy
-import androidx.room.Query
+import androidx.room.*
 import com.sampson.shoplist.model.Category
 import com.sampson.shoplist.model.Item
 import com.sampson.shoplist.model.PopulateModel
@@ -38,4 +35,7 @@ interface ShopDao {
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     suspend fun insertCategory(category: Category)
+
+    @Delete
+    suspend fun deleteItem(item: Item)
 }

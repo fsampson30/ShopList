@@ -39,4 +39,8 @@ class ItemAdapter (
         this.itemsList = items
         notifyDataSetChanged()
     }
+
+    fun getItemAtPosition(position: Int): Item {
+        return itemsList[position]
+    }
 }

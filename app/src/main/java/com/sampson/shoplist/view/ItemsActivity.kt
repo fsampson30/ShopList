@@ -12,6 +12,7 @@ import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
 import com.sampson.shoplist.R
 import com.sampson.shoplist.adapter.CategoryAdapter
@@ -68,6 +69,39 @@ class ItemsActivity : AppCompatActivity() {
             categories.let { categoryAdapter.submitList(it) }
 
         }
+
+        val helperItem = object : ItemTouchHelper.SimpleCallback(0,ItemTouchHelper.LEFT or ItemTouchHelper.RIGHT) {
+            override fun onMove(
+                recyclerView: RecyclerView,
+                viewHolder: RecyclerView.ViewHolder,
+                target: RecyclerView.ViewHolder
+            ): Boolean {
+                return false
+            }
+
+            override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
+                val position = viewHolder.adapterPosition
+                val item = itemAdapter.getItemAtPosition(position)
+                AlertDialog.Builder(this@ItemsActivity).apply {
+                    setTitle("Confirma a exclusão do item ${item.name}?")
+                    setNegativeButton("Não", DialogInterface.OnClickListener{ _,_ ->
+                        itemViewModel.allItems.observe(this@ItemsActivity){ items ->
+                            items.let { itemAdapter.submitList(it) }
+                        }
+                    })
+                    setPositiveButton("Sim",DialogInterface.OnClickListener{ _,_ ->
+                        itemViewModel.deleteItem(item)
+                        itemViewModel.allItems.observe(this@ItemsActivity){ items ->
+                            items.let { itemAdapter.submitList(it) }
+                        }
+                        Toast.makeText(context, "Item excluído", Toast.LENGTH_SHORT).show()
+                    }).show()
+                }
+            }
+        }
+
+        val itemTouchHelper = ItemTouchHelper(helperItem)
+        itemTouchHelper.attachToRecyclerView(rvItem)
 
         btnAddItem.setOnClickListener {
             val input = EditText(this).apply {
