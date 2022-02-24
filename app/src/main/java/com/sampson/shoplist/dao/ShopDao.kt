@@ -38,4 +38,7 @@ interface ShopDao {
 
     @Delete
     suspend fun deleteItem(item: Item)
+
+    @Delete
+    suspend fun deleteCaterogy(category: Category)
 }

@@ -5,10 +5,7 @@ import android.os.Bundle
 import android.text.InputType
 import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
-import android.widget.Button
-import android.widget.EditText
-import android.widget.TextView
-import android.widget.Toast
+import android.widget.*
 import androidx.activity.viewModels
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
@@ -32,7 +29,7 @@ class ItemsActivity : AppCompatActivity() {
         ItemViewModelFactory((application as ShopApplication).repository)
     }
 
-    private val categotyViewModel: CategoryViewModel by viewModels {
+    private val categoryViewModel: CategoryViewModel by viewModels {
         CategoryViewModelFactory((application as ShopApplication).repository)
     }
 
@@ -65,7 +62,7 @@ class ItemsActivity : AppCompatActivity() {
             items.let { itemAdapter.submitList(it) }
         }
 
-        categotyViewModel.allCategories.observe(this){ categories ->
+        categoryViewModel.allCategories.observe(this){ categories ->
             categories.let { categoryAdapter.submitList(it) }
 
         }
@@ -100,8 +97,42 @@ class ItemsActivity : AppCompatActivity() {
             }
         }
 
+        val helperCategory = object : ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.UP or ItemTouchHelper.DOWN) {
+            override fun onMove(
+                recyclerView: RecyclerView,
+                viewHolder: RecyclerView.ViewHolder,
+                target: RecyclerView.ViewHolder
+            ): Boolean {
+                return false
+            }
+
+            override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
+                val position = viewHolder.adapterPosition
+                val category = categoryAdapter.getItemAtPosition(position)
+                AlertDialog.Builder(this@ItemsActivity).apply {
+                    setTitle("Confirma a exclusão da categoria ${category.category_name}?")
+                    setNegativeButton("Não", DialogInterface.OnClickListener{ _,_ ->
+                        categoryViewModel.allCategories.observe(this@ItemsActivity){ items ->
+                            items.let { categoryAdapter.submitList(it) }
+                        }
+                    })
+                    setPositiveButton("Sim",DialogInterface.OnClickListener{ _,_ ->
+                        categoryViewModel.deleteCategory(category)
+                        categoryViewModel.allCategories.observe(this@ItemsActivity){ items ->
+                            items.let { categoryAdapter.submitList(it) }
+                        }
+                        Toast.makeText(context, "Categoria excluída", Toast.LENGTH_SHORT).show()
+                    }).show()
+                }
+            }
+
+        }
+
         val itemTouchHelper = ItemTouchHelper(helperItem)
         itemTouchHelper.attachToRecyclerView(rvItem)
+
+        val categoryTouchHelper = ItemTouchHelper(helperCategory)
+        categoryTouchHelper.attachToRecyclerView(rvCategory)
 
         btnAddItem.setOnClickListener {
             val input = EditText(this).apply {
@@ -139,8 +170,8 @@ class ItemsActivity : AppCompatActivity() {
                         return@OnClickListener
                     } else {
                         val category = Category(0,input.text.toString())
-                        categotyViewModel.insertCategory(category)
-                        categotyViewModel.allCategories.observe(this@ItemsActivity){ categories ->
+                        categoryViewModel.insertCategory(category)
+                        categoryViewModel.allCategories.observe(this@ItemsActivity){ categories ->
                             categories.let { categoryAdapter.submitList(it) }
                         }
                         Toast.makeText(context, "Categoria: ${input.text.toString()} adicionada corretamente.", Toast.LENGTH_SHORT).show()

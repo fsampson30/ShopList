@@ -20,19 +20,19 @@
 
         <Button
             android:id="@+id/btnItemsActivityAddItem"
+            style="?android:attr/buttonBarStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
-            android:text="@string/adicionar_item"
-            style="?android:attr/buttonBarStyle"/>
+            android:text="@string/adicionar_item" />
 
         <Button
             android:id="@+id/btnItemsActivityAddCategory"
+            style="?android:attr/buttonBarStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
-            android:text="@string/adicionar_categoria"
-            style="?android:attr/buttonBarStyle"/>
+            android:text="@string/adicionar_categoria" />
 
     </LinearLayout>
 
@@ -55,10 +55,10 @@
         android:layout_height="0dp"
         android:layout_marginTop="16dp"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        app:layout_constraintTop_toBottomOf="@+id/rvItemActivityCategory"
         app:layout_constraintBottom_toTopOf="@id/txtItemActivityItemSearch"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/rvItemActivityCategory"/>
+        app:layout_constraintStart_toStartOf="parent" />
 
     <EditText
         android:id="@+id/txtItemActivityItemSearch"
@@ -66,8 +66,8 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="4dp"
         android:layout_marginBottom="4dp"
-        android:inputType="text"
         android:hint="@string/procurar_itens"
+        android:inputType="text"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

@@ -43,6 +43,10 @@ class CategoryAdapter(
         notifyDataSetChanged()
     }
 
+    fun getItemAtPosition(position: Int): Category {
+        return categories[position]
+    }
+
     interface CategoryClickListener {
         fun onCategoryClick(category: Category)
     }

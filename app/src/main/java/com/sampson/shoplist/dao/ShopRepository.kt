@@ -30,4 +30,8 @@ class ShopRepository(private val shopDao: ShopDao) {
     suspend fun deleteItem(item: Item){
         shopDao.deleteItem(item)
     }
+
+    suspend fun deleteCategory(category: Category){
+        shopDao.deleteCaterogy(category)
+    }
 }

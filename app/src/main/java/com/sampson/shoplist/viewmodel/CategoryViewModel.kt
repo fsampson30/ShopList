@@ -13,6 +13,11 @@ class CategoryViewModel(private val repository: ShopRepository) : ViewModel() {
     fun insertCategory(category: Category) = viewModelScope.launch{
         repository.insertCategory(category)
     }
+
+    fun deleteCategory(category: Category) = viewModelScope.launch {
+        repository.deleteCategory(category)
+    }
+
 }
 
 class CategoryViewModelFactory(private val repository: ShopRepository): ViewModelProvider.Factory {
