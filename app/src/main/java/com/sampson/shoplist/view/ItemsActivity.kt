@@ -67,7 +67,6 @@ class ItemsActivity : AppCompatActivity() {
 
         categoryViewModel.allCategories.observe(this) { categories ->
             categories.let { categoryAdapter.submitList(it) }
-
         }
 
         val helperItem = object :
@@ -141,8 +140,15 @@ class ItemsActivity : AppCompatActivity() {
 
         btnAddItem.setOnClickListener {
 
-            val intent = Intent(this, CreateItemActivity::class.java)
-            startActivity(intent)
+            categoryViewModel.allCategories.observe(this@ItemsActivity) { categories ->
+                categories.let {
+                    val list = categories.groupBy { it.category_name }.keys
+                    val intent = Intent(this, CreateItemActivity::class.java).apply {
+                        putStringArrayListExtra("Categories", ArrayList(list))
+                    }
+                    startActivity(intent)
+                }
+            }
 
             /*val input = EditText(this).apply {
                 hint = "Adicionar item..."
