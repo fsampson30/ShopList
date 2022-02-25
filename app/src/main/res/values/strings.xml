@@ -7,4 +7,6 @@
     <string name="adicionar_categoria">Adicionar Categoria</string>
     <string name="teste">Teste</string>
     <string name="procurar_itens">Procurar itens...</string>
+    <string name="digite_o_nome_do_item">Digite o nome do item...</string>
+    <string name="add_item_label">Adicionar Novo Item</string>
 </resources>
