@@ -1,22 +1,17 @@
 package com.sampson.shoplist.view
 
+import android.app.Activity
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.widget.*
-import androidx.activity.viewModels
 import com.sampson.shoplist.R
-import com.sampson.shoplist.dao.ShopApplication
 import com.sampson.shoplist.model.Item
-import com.sampson.shoplist.viewmodel.ItemViewModel
-import com.sampson.shoplist.viewmodel.ItemViewModelFactory
+
 
 
 class CreateItemActivity : AppCompatActivity() {
-
-    private val itemViewModel: ItemViewModel by viewModels {
-        ItemViewModelFactory((application as ShopApplication).repository)
-    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -46,12 +41,11 @@ class CreateItemActivity : AppCompatActivity() {
             } else {
                 Toast.makeText(this, "Confirmando", Toast.LENGTH_SHORT).show()
                 val item = Item(0, txtCreateItem.text.toString(), spinner.selectedItemPosition+1)
-                itemViewModel.insertItem(item)
+                val replyIntent = Intent()
+                replyIntent.putExtra("item", item)
+                setResult(Activity.RESULT_OK, replyIntent)
                 finish()
             }
-
         }
-
-
     }
 }

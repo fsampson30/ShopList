@@ -7,6 +7,7 @@ import android.text.InputType
 import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
 import android.widget.*
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
@@ -42,6 +43,8 @@ class ItemsActivity : AppCompatActivity() {
         val btnAddCategory: Button = findViewById(R.id.btnItemsActivityAddCategory)
         val txtSearchItem: TextView = findViewById(R.id.txtItemActivityItemSearch)
 
+        var categoriesList = mutableListOf<Category>()
+
         val itemAdapter = ItemAdapter(baseContext)
 
         val categoryAdapter =
@@ -66,7 +69,10 @@ class ItemsActivity : AppCompatActivity() {
         }
 
         categoryViewModel.allCategories.observe(this) { categories ->
-            categories.let { categoryAdapter.submitList(it) }
+            categories.let {
+                categoryAdapter.submitList(it)
+                categoriesList = it
+            }
         }
 
         val helperItem = object :
@@ -138,17 +144,19 @@ class ItemsActivity : AppCompatActivity() {
         val categoryTouchHelper = ItemTouchHelper(helperCategory)
         categoryTouchHelper.attachToRecyclerView(rvCategory)
 
-        btnAddItem.setOnClickListener {
-
-            categoryViewModel.allCategories.observe(this@ItemsActivity) { categories ->
-                categories.let {
-                    val list = categories.groupBy { it.category_name }.keys
-                    val intent = Intent(this, CreateItemActivity::class.java).apply {
-                        putStringArrayListExtra("Categories", ArrayList(list))
-                    }
-                    startActivity(intent)
-                }
+        val register = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
+            if (it.resultCode == RESULT_OK) {
+                val item = it.data?.getSerializableExtra("item") as Item
+                itemViewModel.insertItem(item)
             }
+        }
+
+        btnAddItem.setOnClickListener {
+            val list = categoriesList.groupBy { it.category_name }.keys
+            val intent = Intent(this, CreateItemActivity::class.java).apply {
+                putStringArrayListExtra("Categories", ArrayList(list))
+            }
+            register.launch(intent)
         }
 
         btnAddCategory.setOnClickListener {
