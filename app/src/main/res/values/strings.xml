@@ -9,4 +9,5 @@
     <string name="procurar_itens">Procurar itens...</string>
     <string name="digite_o_nome_do_item">Digite o nome do item...</string>
     <string name="add_item_label">Adicionar Novo Item</string>
+    <string name="confirmar">Confirmar</string>
 </resources>

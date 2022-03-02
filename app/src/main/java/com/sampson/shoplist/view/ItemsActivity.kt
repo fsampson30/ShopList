@@ -149,32 +149,6 @@ class ItemsActivity : AppCompatActivity() {
                     startActivity(intent)
                 }
             }
-
-            /*val input = EditText(this).apply {
-                hint = "Adicionar item..."
-                inputType = InputType.TYPE_CLASS_TEXT
-            }
-
-            AlertDialog.Builder(this).apply {
-                setView(input)
-                setNegativeButton("Cancel", null)
-                setPositiveButton("OK", DialogInterface.OnClickListener { _, _ ->
-                    if (input.text.isEmpty()) {
-                        return@OnClickListener
-                    } else {
-                        val item = Item(0, input.text.toString(), 10)
-                        itemViewModel.insertItem(item)
-                        itemViewModel.allItems.observe(this@ItemsActivity) { items ->
-                            items.let { itemAdapter.submitList(it) }
-                        }
-                        Toast.makeText(
-                            context,
-                            "Item: ${input.text.toString()} adicionado corretamente",
-                            Toast.LENGTH_SHORT
-                        ).show()
-                    }
-                }).show()
-            }*/
         }
 
         btnAddCategory.setOnClickListener {
