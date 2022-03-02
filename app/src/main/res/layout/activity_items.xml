@@ -43,22 +43,34 @@
         android:layout_marginTop="16dp"
         android:orientation="horizontal"
         app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
-        app:layout_constraintBottom_toTopOf="@id/rvItemActivityItems"
+        app:layout_constraintBottom_toTopOf="@id/refreshRvItems"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/linearLayout"
         app:spanCount="2" />
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rvItemActivityItems"
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        android:id="@+id/refreshRvItems"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_marginTop="16dp"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-        app:layout_constraintTop_toBottomOf="@+id/rvItemActivityCategory"
         app:layout_constraintBottom_toTopOf="@id/txtItemActivityItemSearch"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/rvItemActivityCategory">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rvItemActivityItems"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_constraintBottom_toTopOf="@id/txtItemActivityItemSearch"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/rvItemActivityCategory" />
+
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
     <EditText
         android:id="@+id/txtItemActivityItemSearch"
@@ -71,8 +83,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/rvItemActivityItems" />
-
+        app:layout_constraintTop_toBottomOf="@+id/refreshRvItems" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

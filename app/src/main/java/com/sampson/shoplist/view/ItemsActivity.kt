@@ -13,6 +13,7 @@ import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.sampson.shoplist.R
 import com.sampson.shoplist.adapter.CategoryAdapter
 import com.sampson.shoplist.adapter.ItemAdapter
@@ -45,6 +46,10 @@ class ItemsActivity : AppCompatActivity() {
 
         var categoriesList = mutableListOf<Category>()
 
+        val pullToRefresh : SwipeRefreshLayout = findViewById(R.id.refreshRvItems)
+
+
+
         val itemAdapter = ItemAdapter(baseContext)
 
         val categoryAdapter =
@@ -73,6 +78,13 @@ class ItemsActivity : AppCompatActivity() {
                 categoryAdapter.submitList(it)
                 categoriesList = it
             }
+        }
+
+        pullToRefresh.setOnRefreshListener {
+            itemViewModel.allItems.observe(this) { items ->
+                items.let { itemAdapter.submitList(it) }
+            }
+            pullToRefresh.isRefreshing = false
         }
 
         val helperItem = object :
@@ -181,6 +193,10 @@ class ItemsActivity : AppCompatActivity() {
                             "Categoria: ${input.text.toString()} adicionada corretamente.",
                             Toast.LENGTH_SHORT
                         ).show()
+                        val inputManager: InputMethodManager = getSystemService(
+                            INPUT_METHOD_SERVICE
+                        ) as InputMethodManager
+                        inputManager.hideSoftInputFromWindow(input.windowToken, 0)
                     }
                 })
             }.show()
@@ -204,5 +220,4 @@ class ItemsActivity : AppCompatActivity() {
             }
         }
     }
-
 }

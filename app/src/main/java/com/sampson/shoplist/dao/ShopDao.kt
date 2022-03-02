@@ -12,16 +12,16 @@ import kotlinx.coroutines.flow.Flow
 @Dao
 interface ShopDao {
 
-    @Query("SELECT * FROM table_item")
+    @Query("SELECT * FROM table_item ORDER BY name")
     fun getAllItems(): Flow<MutableList<Item>>
 
-    @Query("SELECT * FROM table_item WHERE name LIKE :text")
+    @Query("SELECT * FROM table_item WHERE name LIKE :text ORDER BY name")
     fun getItems(text: String): Flow<MutableList<Item>>
 
-    @Query("SELECT * FROM table_item WHERE category = :id")
+    @Query("SELECT * FROM table_item WHERE category = :id ORDER BY name")
     fun getItemsByCategory(id: Int): Flow<MutableList<Item>>
 
-    @Query("SELECT * FROM table_category")
+    @Query("SELECT * FROM table_category ORDER BY category_name")
     fun getAllCategories(): Flow<MutableList<Category>>
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
@@ -40,5 +40,5 @@ interface ShopDao {
     suspend fun deleteItem(item: Item)
 
     @Delete
-    suspend fun deleteCaterogy(category: Category)
+    suspend fun deleteCategory(category: Category)
 }

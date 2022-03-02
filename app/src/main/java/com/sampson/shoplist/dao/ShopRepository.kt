@@ -15,6 +15,7 @@ class ShopRepository(private val shopDao: ShopDao) {
         shopDao.insertItem(item)
     }
 
+    @WorkerThread
     suspend fun insertCategory(category: Category){
         shopDao.insertCategory(category)
     }
@@ -32,6 +33,6 @@ class ShopRepository(private val shopDao: ShopDao) {
     }
 
     suspend fun deleteCategory(category: Category){
-        shopDao.deleteCaterogy(category)
+        shopDao.deleteCategory(category)
     }
 }

@@ -9,8 +9,6 @@ import android.widget.*
 import com.sampson.shoplist.R
 import com.sampson.shoplist.model.Item
 
-
-
 class CreateItemActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
