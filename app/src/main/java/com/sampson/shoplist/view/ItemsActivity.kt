@@ -46,8 +46,7 @@ class ItemsActivity : AppCompatActivity() {
 
         var categoriesList = mutableListOf<Category>()
 
-        val pullToRefresh : SwipeRefreshLayout = findViewById(R.id.refreshRvItems)
-
+        val pullToRefresh: SwipeRefreshLayout = findViewById(R.id.refreshRvItems)
 
 
         val itemAdapter = ItemAdapter(baseContext)
@@ -158,8 +157,14 @@ class ItemsActivity : AppCompatActivity() {
 
         val register = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
             if (it.resultCode == RESULT_OK) {
-                val item = it.data?.getSerializableExtra("item") as Item
-                itemViewModel.insertItem(item)
+                val itemName = it.data?.getStringExtra("itemName") as String
+                val itemCategory = it.data?.getStringExtra("itemCategory") as String
+                categoryViewModel.selectCategoryIdByName(itemCategory).observe(this) { categoryId ->
+                    categoryId.let {
+                        val item = Item(0, itemName, it)
+                        itemViewModel.insertItem(item)
+                    }
+                }
             }
         }
 

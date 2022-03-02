@@ -18,6 +18,8 @@ class CategoryViewModel(private val repository: ShopRepository) : ViewModel() {
         repository.deleteCategory(category)
     }
 
+    fun selectCategoryIdByName(text: String) = repository.selectCategoryIdByName(text).asLiveData()
+
 }
 
 class CategoryViewModelFactory(private val repository: ShopRepository): ViewModelProvider.Factory {

@@ -24,6 +24,9 @@ interface ShopDao {
     @Query("SELECT * FROM table_category ORDER BY category_name")
     fun getAllCategories(): Flow<MutableList<Category>>
 
+    @Query("SELECT id FROM table_category WHERE category_name LIKE :text")
+    fun getCategoryIdByName(text: String): Flow<Int>
+
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     suspend fun insertAllItems(items: MutableList<Item> = populateItem())
 
