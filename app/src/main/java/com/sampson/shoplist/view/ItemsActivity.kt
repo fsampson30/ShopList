@@ -36,6 +36,8 @@ class ItemsActivity : AppCompatActivity() {
         CategoryViewModelFactory((application as ShopApplication).repository)
     }
 
+    var categoriesList = mutableListOf<Category>()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_items)
@@ -43,11 +45,7 @@ class ItemsActivity : AppCompatActivity() {
         val btnAddItem: Button = findViewById(R.id.btnItemsActivityAddItem)
         val btnAddCategory: Button = findViewById(R.id.btnItemsActivityAddCategory)
         val txtSearchItem: TextView = findViewById(R.id.txtItemActivityItemSearch)
-
-        var categoriesList = mutableListOf<Category>()
-
         val pullToRefresh: SwipeRefreshLayout = findViewById(R.id.refreshRvItems)
-
 
         val itemAdapter = ItemAdapter(baseContext)
 
@@ -159,12 +157,12 @@ class ItemsActivity : AppCompatActivity() {
             if (it.resultCode == RESULT_OK) {
                 val itemName = it.data?.getStringExtra("itemName") as String
                 val itemCategory = it.data?.getStringExtra("itemCategory") as String
-                categoryViewModel.selectCategoryIdByName(itemCategory).observe(this) { categoryId ->
-                    categoryId.let {
-                        val item = Item(0, itemName, it)
-                        itemViewModel.insertItem(item)
-                    }
-                }
+                var categoryId = getCategoryIdByName(itemCategory)
+                val item = Item(0, itemName, categoryId)
+                itemViewModel.insertItem(item)
+            }
+            itemViewModel.allItems.observe(this@ItemsActivity) { items ->
+                items.let { itemAdapter.submitList(it) }
             }
         }
 
@@ -224,5 +222,14 @@ class ItemsActivity : AppCompatActivity() {
                 false
             }
         }
+    }
+
+    private fun getCategoryIdByName(text: String): Int {
+        for (i in 0..categoriesList.size) {
+            if (categoriesList[i].category_name == text) {
+                return categoriesList[i].id
+            }
+        }
+        return 0
     }
 }

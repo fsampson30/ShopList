@@ -28,10 +28,6 @@ class ShopRepository(private val shopDao: ShopDao) {
         return shopDao.getItemsByCategory(id)
     }
 
-    fun selectCategoryIdByName(name: String) : Flow<Int>{
-        return shopDao.getCategoryIdByName(name)
-    }
-
     suspend fun deleteItem(item: Item){
         shopDao.deleteItem(item)
     }
