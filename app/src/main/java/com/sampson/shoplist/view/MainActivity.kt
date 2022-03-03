@@ -43,7 +43,8 @@ class MainActivity : AppCompatActivity() {
         }
 
         imgMarkets.setOnClickListener {
-            Toast.makeText(this, "Testing markets",Toast.LENGTH_SHORT).show()
+            val intent = Intent(baseContext, MarketsActivity::class.java)
+            startActivity(intent)
         }
 
     }

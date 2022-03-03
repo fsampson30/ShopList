@@ -11,10 +11,15 @@
         android:supportsRtl="true"
         android:theme="@style/ColorOne">
         <activity
+            android:name=".view.MarketsActivity"
+            android:exported="false"
+            android:label="@string/encarte"
+            android:parentActivityName=".view.MainActivity"/>
+        <activity
             android:name=".view.CreateItemActivity"
             android:exported="false"
             android:label="@string/add_item_label"
-            android:parentActivityName=".view.ItemsActivity"/>
+            android:parentActivityName=".view.ItemsActivity" />
         <activity
             android:name=".view.ItemsActivity"
             android:exported="false"
