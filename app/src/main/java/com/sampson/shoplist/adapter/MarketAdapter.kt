@@ -14,7 +14,8 @@ import com.sampson.shoplist.model.Market
 import com.sampson.shoplist.model.PopulateModel
 
 class MarketAdapter(
-    private val context: Context
+    private val context: Context,
+    private val clickListener: MarketClickListener
 
     ) : RecyclerView.Adapter<MarketAdapter.MarketViewHolder>() {
 
@@ -33,14 +34,13 @@ class MarketAdapter(
     override fun onBindViewHolder(holder: MarketViewHolder, position: Int) {
         holder.txtNameMarket.text = marketList[position].name
         holder.imgMarket.setImageResource(marketList[position].picture)
-        //holder.itemView.setOnClickListener { clickListener.onMarketCLick(marketList[position])}
+        holder.itemView.setOnClickListener { clickListener.onMarketCLick(marketList[position])}
     }
 
     override fun getItemCount() = marketList.size
 
     fun submitList(markets: MutableList<Market>) {
         this.marketList = markets
-        Log.d("LISTA", marketList.size.toString())
         notifyDataSetChanged()
     }
 

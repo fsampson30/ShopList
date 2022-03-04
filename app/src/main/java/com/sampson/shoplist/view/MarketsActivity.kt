@@ -1,5 +1,7 @@
 package com.sampson.shoplist.view
 
+import android.content.Intent
+import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -14,10 +16,16 @@ class MarketsActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_markets)
 
-        val marketAdapter = MarketAdapter(baseContext)
+        val marketAdapter = MarketAdapter(baseContext, object : MarketAdapter.MarketClickListener{
+            override fun onMarketCLick(market: Market) {
+                val intent = Intent(Intent.ACTION_VIEW).apply {
+                    data = Uri.parse(market.url)
+                }
+                startActivity(intent)
+            }
+        })
 
         val marketsList = PopulateModel.populateMarket()
-        Log.d("LISTA", marketsList.size.toString())
 
         val rvMarkets: RecyclerView = findViewById(R.id.rvMarkets)
         rvMarkets.adapter = marketAdapter
