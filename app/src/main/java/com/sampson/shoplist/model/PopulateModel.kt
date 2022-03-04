@@ -1,5 +1,7 @@
 package com.sampson.shoplist.model
 
+import com.sampson.shoplist.R
+
 object PopulateModel {
 
     fun populateCategory() : ArrayList<Category>{
@@ -39,7 +41,10 @@ object PopulateModel {
 
     fun populateMarket() : ArrayList<Market> {
         val markets = arrayListOf<Market>()
-        markets.add(Market("Guanabara","https://www.supermercadosguanabara.com.br/encarte", 0))
+        markets.add(Market("Guanabara","https://www.supermercadosguanabara.com.br/encarte", R.drawable.guanabara))
+        markets.add(Market("Mundial","https://www.supermercadosguanabara.com.br/encarte", 0))
+        markets.add(Market("Prezunic","https://www.supermercadosguanabara.com.br/encarte", 0))
+        markets.add(Market("RedeEconomia","https://www.supermercadosguanabara.com.br/encarte", 0))
         return markets
     }
 }
