@@ -36,4 +36,10 @@ object PopulateModel {
         items.add(Item(15,"Pão de Forma",7))
         return items
     }
+
+    fun populateMarket() : ArrayList<Market> {
+        val markets = arrayListOf<Market>()
+        markets.add(Market("Guanabara","https://www.supermercadosguanabara.com.br/encarte", 0))
+        return markets
+    }
 }
