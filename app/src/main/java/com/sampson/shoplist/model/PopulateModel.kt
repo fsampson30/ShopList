@@ -42,9 +42,15 @@ object PopulateModel {
     fun populateMarket() : ArrayList<Market> {
         val markets = arrayListOf<Market>()
         markets.add(Market("Guanabara","https://www.supermercadosguanabara.com.br/encarte", R.drawable.guanabara))
-        markets.add(Market("Mundial","https://www.supermercadosguanabara.com.br/encarte", 0))
-        markets.add(Market("Prezunic","https://www.supermercadosguanabara.com.br/encarte", 0))
-        markets.add(Market("RedeEconomia","https://www.supermercadosguanabara.com.br/encarte", 0))
+        markets.add(Market("Mundial","https://www.supermercadosmundial.com.br/encarte", R.drawable.mundial))
+        markets.add(Market("Prezunic","https://www.prezunic.com.br/ofertas/encartes/", R.drawable.prezunic))
+        markets.add(Market("Rede Economia","https://www.redeconomia.com.br/ofertas/encarte/", R.drawable.redeconomia))
+        markets.add(Market("Super Market","https://smpravc.com.br/encartes/", R.drawable.supermarket))
+        markets.add(Market("Hortifruti","https://www.hortifruti.com.br/", R.drawable.hortifruti))
+        markets.add(Market("SuperPrix","https://www.superprix.com.br/", R.drawable.superprix))
+        markets.add(Market("Zona Sul","https://www.zonasul.com.br/", R.drawable.zonasul))
+        markets.add(Market("Pão de Açucar","https://www.paodeacucar.com/", R.drawable.paodeacucar))
+        markets.add(Market("Costazul","https://www.costazulsupermercados.com.br/encarte/", R.drawable.costazul))
         return markets
     }
 }
