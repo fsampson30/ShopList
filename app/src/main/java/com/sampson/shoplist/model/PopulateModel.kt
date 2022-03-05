@@ -51,6 +51,8 @@ object PopulateModel {
         markets.add(Market("Zona Sul","https://www.zonasul.com.br/", R.drawable.zonasul))
         markets.add(Market("Pão de Açucar","https://www.paodeacucar.com/", R.drawable.paodeacucar))
         markets.add(Market("Costazul","https://www.costazulsupermercados.com.br/encarte/", R.drawable.costazul))
+        markets.add(Market("Assai","https://www.assai.com.br/ofertas/rio-de-janeiro/assai-tijuca/", R.drawable.assai))
         return markets
     }
 }
+
