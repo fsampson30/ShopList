@@ -4,6 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:focusable="true"
+    android:focusableInTouchMode="true"
     android:padding="16dp"
     tools:context=".view.CreateListActivity">
 
@@ -12,23 +14,40 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10"
-        android:inputType="textPersonName"
         android:hint="@string/pesquise_o_item"
+        android:inputType="textPersonName"
+        android:imeOptions="actionDone"
+        android:nextFocusUp="@id/edtSearchItemCreateListActivity"
+        app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toTopOf="@id/rvShowItemsCreateListActivity"/>
+        app:layout_constraintBottom_toTopOf="@id/refreshRvShowItemsCreateListActivity" />
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rvShowItemsCreateListActivity"
+
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        android:id="@+id/refreshRvShowItemsCreateListActivity"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginTop="8dp"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        app:layout_constraintBottom_toTopOf="@id/edtShopDateCreateListActivity"
         app:layout_constraintEnd_toStartOf="@+id/rvAddItemsCreateListActivity"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/edtSearchItemCreateListActivity"
-        app:layout_constraintBottom_toTopOf="@id/edtShopDateCreateListActivity"/>
+        app:layout_constraintTop_toBottomOf="@+id/edtSearchItemCreateListActivity">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rvShowItemsCreateListActivity"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginTop="8dp"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_constraintBottom_toTopOf="@id/edtShopDateCreateListActivity"
+            app:layout_constraintEnd_toStartOf="@+id/rvAddItemsCreateListActivity"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/edtSearchItemCreateListActivity" />
+
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvAddItemsCreateListActivity"
@@ -36,23 +55,23 @@
         android:layout_height="0dp"
         android:layout_marginTop="8dp"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        app:layout_constraintBottom_toTopOf="@id/edtShopDateCreateListActivity"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/edtSearchItemCreateListActivity"
-        app:layout_constraintStart_toEndOf="@id/rvShowItemsCreateListActivity"
-        app:layout_constraintBottom_toTopOf="@id/edtShopDateCreateListActivity"/>
+        app:layout_constraintStart_toEndOf="@id/refreshRvShowItemsCreateListActivity"
+        app:layout_constraintTop_toBottomOf="@+id/edtSearchItemCreateListActivity" />
 
     <EditText
         android:id="@+id/edtShopDateCreateListActivity"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:ems="10"
-        android:inputType="date"
         android:layout_marginTop="8dp"
+        android:ems="10"
         android:hint="@string/digite_a_data_da_compra"
+        android:inputType="date"
+        app:layout_constraintBottom_toTopOf="@id/llButtonsCreateListActivity"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/rvShowItemsCreateListActivity"
-        app:layout_constraintBottom_toTopOf="@id/llButtonsCreateListActivity" />
+        app:layout_constraintTop_toBottomOf="@+id/refreshRvShowItemsCreateListActivity" />
 
     <LinearLayout
         android:id="@+id/llButtonsCreateListActivity"

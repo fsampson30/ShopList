@@ -7,6 +7,7 @@ import android.widget.EditText
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.recyclerview.widget.RecyclerView
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.sampson.shoplist.R
 import com.sampson.shoplist.adapter.ItemAdapter
 import com.sampson.shoplist.dao.ShopApplication
@@ -31,6 +32,8 @@ class CreateListActivity : AppCompatActivity() {
         val rvShowItems: RecyclerView = findViewById(R.id.rvShowItemsCreateListActivity)
         val rvAddItems: RecyclerView = findViewById(R.id.rvAddItemsCreateListActivity)
 
+        val pullToRefresh : SwipeRefreshLayout = findViewById(R.id.refreshRvShowItemsCreateListActivity)
+
         val itemAdapter = ItemAdapter(baseContext)
         rvShowItems.adapter = itemAdapter
 
@@ -44,6 +47,13 @@ class CreateListActivity : AppCompatActivity() {
 
         btnConfirmList.setOnClickListener {
             Toast.makeText(baseContext, "Confirming List", Toast.LENGTH_SHORT).show()
+        }
+
+        pullToRefresh.setOnRefreshListener {
+            itemViewModel.allItems.observe(this) { items ->
+                items.let { itemAdapter.submitList(it) }
+            }
+            pullToRefresh.isRefreshing = false
         }
 
 
