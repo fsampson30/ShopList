@@ -11,4 +11,9 @@
     <string name="add_item_label">Adicionar Novo Item</string>
     <string name="confirmar">Confirmar</string>
     <string name="encarte">Consulta de Encartes</string>
+    <string name="criar_lista">Criar Lista</string>
+    <string name="pesquise_o_item">Pesquise o item...</string>
+    <string name="digite_a_data_da_compra">Digite a data da compra...</string>
+    <string name="limpa_lista">Limpa Lista</string>
+    <string name="confirma_lista">Confirma Lista</string>
 </resources>

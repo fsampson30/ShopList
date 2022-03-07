@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="16dp"
+    tools:context=".view.CreateListActivity">
+
+    <EditText
+        android:id="@+id/edtSearchItemCreateListActivity"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:hint="@string/pesquise_o_item"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/rvShowItemsCreateListActivity"/>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rvShowItemsCreateListActivity"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintEnd_toStartOf="@+id/rvAddItemsCreateListActivity"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/edtSearchItemCreateListActivity"
+        app:layout_constraintBottom_toTopOf="@id/edtShopDateCreateListActivity"/>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rvAddItemsCreateListActivity"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/edtSearchItemCreateListActivity"
+        app:layout_constraintStart_toEndOf="@id/rvShowItemsCreateListActivity"
+        app:layout_constraintBottom_toTopOf="@id/edtShopDateCreateListActivity"/>
+
+    <EditText
+        android:id="@+id/edtShopDateCreateListActivity"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="date"
+        android:layout_marginTop="8dp"
+        android:hint="@string/digite_a_data_da_compra"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/rvShowItemsCreateListActivity"
+        app:layout_constraintBottom_toTopOf="@id/llButtonsCreateListActivity" />
+
+    <LinearLayout
+        android:id="@+id/llButtonsCreateListActivity"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/edtShopDateCreateListActivity">
+
+        <Button
+            android:id="@+id/btnItemsActivityAddItem"
+            style="?android:attr/buttonBarStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:text="@string/limpa_lista" />
+
+        <Button
+            android:id="@+id/btnItemsActivityAddCategory"
+            style="?android:attr/buttonBarStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:text="@string/confirma_lista" />
+
+    </LinearLayout>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

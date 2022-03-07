@@ -13,10 +13,15 @@
         android:supportsRtl="true"
         android:theme="@style/ColorOne">
         <activity
+            android:name=".view.CreateListActivity"
+            android:exported="false"
+            android:label="@string/criar_lista"
+            android:parentActivityName=".view.MainActivity" />
+        <activity
             android:name=".view.MarketsActivity"
             android:exported="false"
             android:label="@string/encarte"
-            android:parentActivityName=".view.MainActivity"/>
+            android:parentActivityName=".view.MainActivity" />
         <activity
             android:name=".view.CreateItemActivity"
             android:exported="false"

@@ -26,7 +26,8 @@ class MainActivity : AppCompatActivity() {
 
 
         imgNewList.setOnClickListener {
-            Toast.makeText(this, "Testing new list",Toast.LENGTH_SHORT).show()
+            val intent = Intent(baseContext, CreateListActivity::class.java)
+            startActivity(intent)
         }
 
         imgRetrieveList.setOnClickListener {
