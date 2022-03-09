@@ -2,6 +2,8 @@ package com.sampson.shoplist.view
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.inputmethod.EditorInfo
+import android.view.inputmethod.InputMethodManager
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
@@ -24,7 +26,7 @@ class CreateListActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_create_list)
 
-        val btnClearList : Button = findViewById(R.id.btnClearListCreateListActivity)
+        val btnClearList: Button = findViewById(R.id.btnClearListCreateListActivity)
         val btnConfirmList: Button = findViewById(R.id.btnConfirmListCreateListActitivy)
         val edtSearchItem: EditText = findViewById(R.id.edtSearchItemCreateListActivity)
         val edtShopDate: EditText = findViewById(R.id.edtShopDateCreateListActivity)
@@ -32,7 +34,8 @@ class CreateListActivity : AppCompatActivity() {
         val rvShowItems: RecyclerView = findViewById(R.id.rvShowItemsCreateListActivity)
         val rvAddItems: RecyclerView = findViewById(R.id.rvAddItemsCreateListActivity)
 
-        val pullToRefresh : SwipeRefreshLayout = findViewById(R.id.refreshRvShowItemsCreateListActivity)
+        val pullToRefresh: SwipeRefreshLayout =
+            findViewById(R.id.refreshRvShowItemsCreateListActivity)
 
         val itemAdapter = ItemAdapter(baseContext)
         rvShowItems.adapter = itemAdapter
@@ -53,9 +56,26 @@ class CreateListActivity : AppCompatActivity() {
             itemViewModel.allItems.observe(this) { items ->
                 items.let { itemAdapter.submitList(it) }
             }
+            edtSearchItem.text.clear()
             pullToRefresh.isRefreshing = false
         }
 
+        edtSearchItem.setOnEditorActionListener { v, actionId, event ->
+            if (actionId == EditorInfo.IME_ACTION_DONE) {
+                val inputManager: InputMethodManager = getSystemService(
+                    INPUT_METHOD_SERVICE
+                ) as InputMethodManager
+                inputManager.hideSoftInputFromWindow(edtSearchItem.windowToken, 0)
 
+                itemViewModel.selectItem("%${edtSearchItem.text.toString()}%")
+                    .observe(this) { items ->
+                        items.let { itemAdapter.submitList(it) }
+                    }
+                true
+            } else {
+                Toast.makeText(baseContext, "Item não encontrado", Toast.LENGTH_SHORT).show()
+                false
+            }
+        }
     }
 }
