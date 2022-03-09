@@ -8,9 +8,11 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
 import androidx.activity.viewModels
+import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.sampson.shoplist.R
+import com.sampson.shoplist.adapter.CreateListAdapter
 import com.sampson.shoplist.adapter.ItemAdapter
 import com.sampson.shoplist.dao.ShopApplication
 import com.sampson.shoplist.viewmodel.ItemViewModel
@@ -39,6 +41,9 @@ class CreateListActivity : AppCompatActivity() {
 
         val itemAdapter = ItemAdapter(baseContext)
         rvShowItems.adapter = itemAdapter
+
+        val createList = CreateListAdapter(baseContext)
+        rvAddItems.adapter = createList
 
         itemViewModel.allItems.observe(this) { items ->
             items.let { itemAdapter.submitList(it) }
@@ -77,5 +82,28 @@ class CreateListActivity : AppCompatActivity() {
                 false
             }
         }
+
+        val helperAddItem = object : ItemTouchHelper.SimpleCallback(0,ItemTouchHelper.RIGHT){
+            override fun onMove(
+                recyclerView: RecyclerView,
+                viewHolder: RecyclerView.ViewHolder,
+                target: RecyclerView.ViewHolder
+            ): Boolean {
+                return false
+            }
+
+            override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
+                val position = viewHolder.adapterPosition
+                val item = itemAdapter.getItemAtPosition(position)
+                Toast.makeText(baseContext,"TESTE",Toast.LENGTH_SHORT).show()
+                createList.addItem(item)
+                itemViewModel.allItems.observe(this@CreateListActivity) { items ->
+                    items.let { itemAdapter.submitList(it) }
+                }
+            }
+        }
+
+        val itemTouchHelper = ItemTouchHelper(helperAddItem)
+        itemTouchHelper.attachToRecyclerView(rvShowItems)
     }
 }
