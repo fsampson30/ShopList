@@ -40,4 +40,9 @@ class CreateListAdapter(
         itemsList.add(ItemsList(0,item.id,item.name,0,0))
         notifyDataSetChanged()
     }
+
+    fun removeItem(position: Int) {
+        itemsList.removeAt(position)
+        notifyItemRemoved(position)
+    }
 }

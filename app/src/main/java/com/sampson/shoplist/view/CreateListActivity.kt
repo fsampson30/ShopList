@@ -15,6 +15,7 @@ import com.sampson.shoplist.R
 import com.sampson.shoplist.adapter.CreateListAdapter
 import com.sampson.shoplist.adapter.ItemAdapter
 import com.sampson.shoplist.dao.ShopApplication
+import com.sampson.shoplist.model.Item
 import com.sampson.shoplist.viewmodel.ItemViewModel
 import com.sampson.shoplist.viewmodel.ItemViewModelFactory
 
@@ -103,7 +104,25 @@ class CreateListActivity : AppCompatActivity() {
             }
         }
 
+        val helperRemoveItem = object : ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT) {
+            override fun onMove(
+                recyclerView: RecyclerView,
+                viewHolder: RecyclerView.ViewHolder,
+                target: RecyclerView.ViewHolder
+            ): Boolean {
+                return false
+            }
+
+            override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
+                val position = viewHolder.adapterPosition
+                createList.removeItem(position)
+            }
+        }
+
         val itemTouchHelper = ItemTouchHelper(helperAddItem)
         itemTouchHelper.attachToRecyclerView(rvShowItems)
+
+        val itemRemoveHelper = ItemTouchHelper(helperRemoveItem)
+        itemRemoveHelper.attachToRecyclerView(rvAddItems)
     }
 }
