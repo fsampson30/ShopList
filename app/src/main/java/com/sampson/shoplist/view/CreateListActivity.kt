@@ -15,7 +15,6 @@ import com.sampson.shoplist.R
 import com.sampson.shoplist.adapter.CreateListAdapter
 import com.sampson.shoplist.adapter.ItemAdapter
 import com.sampson.shoplist.dao.ShopApplication
-import com.sampson.shoplist.model.Item
 import com.sampson.shoplist.viewmodel.ItemViewModel
 import com.sampson.shoplist.viewmodel.ItemViewModelFactory
 
@@ -51,7 +50,7 @@ class CreateListActivity : AppCompatActivity() {
         }
 
         btnClearList.setOnClickListener {
-            Toast.makeText(baseContext, "Clearing List", Toast.LENGTH_SHORT).show()
+            createList.removeAllItems()
         }
 
         btnConfirmList.setOnClickListener {
@@ -96,7 +95,6 @@ class CreateListActivity : AppCompatActivity() {
             override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
                 val position = viewHolder.adapterPosition
                 val item = itemAdapter.getItemAtPosition(position)
-                Toast.makeText(baseContext,"TESTE",Toast.LENGTH_SHORT).show()
                 createList.addItem(item)
                 itemViewModel.allItems.observe(this@CreateListActivity) { items ->
                     items.let { itemAdapter.submitList(it) }
@@ -119,10 +117,28 @@ class CreateListActivity : AppCompatActivity() {
             }
         }
 
+        val helperAddQtt = object : ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.RIGHT) {
+            override fun onMove(
+                recyclerView: RecyclerView,
+                viewHolder: RecyclerView.ViewHolder,
+                target: RecyclerView.ViewHolder
+            ): Boolean {
+                return false
+            }
+
+            override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
+                val position = viewHolder.adapterPosition
+                createList.addQuantity(position)
+            }
+        }
+
         val itemTouchHelper = ItemTouchHelper(helperAddItem)
         itemTouchHelper.attachToRecyclerView(rvShowItems)
 
         val itemRemoveHelper = ItemTouchHelper(helperRemoveItem)
         itemRemoveHelper.attachToRecyclerView(rvAddItems)
+
+        val itemAddQuantity = ItemTouchHelper(helperAddQtt)
+        itemAddQuantity.attachToRecyclerView(rvAddItems)
     }
 }
