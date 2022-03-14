@@ -14,7 +14,9 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.sampson.shoplist.R
 import com.sampson.shoplist.adapter.CreateListAdapter
 import com.sampson.shoplist.adapter.ItemAdapter
+import com.sampson.shoplist.controller.RandomUtils
 import com.sampson.shoplist.dao.ShopApplication
+import com.sampson.shoplist.model.List
 import com.sampson.shoplist.viewmodel.ItemViewModel
 import com.sampson.shoplist.viewmodel.ItemViewModelFactory
 
@@ -54,7 +56,8 @@ class CreateListActivity : AppCompatActivity() {
         }
 
         btnConfirmList.setOnClickListener {
-            Toast.makeText(baseContext, "Confirming List", Toast.LENGTH_SHORT).show()
+            val listHash = RandomUtils.returnRandomInt()
+            val list = List(0,edtShopDate.text.toString(),listHash,0.0)
         }
 
         pullToRefresh.setOnRefreshListener {

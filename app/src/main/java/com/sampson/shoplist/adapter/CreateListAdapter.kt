@@ -52,7 +52,7 @@ class CreateListAdapter(
     }
 
     fun removeItem(position: Int) {
-        if (itemsList[position].quantity > 0 ) {
+        if (itemsList[position].quantity > 0) {
             itemsList[position].quantity--
             notifyItemChanged(position)
         } else {
@@ -61,7 +61,7 @@ class CreateListAdapter(
         }
     }
 
-    fun removeAllItems(){
+    fun removeAllItems() {
         itemsList.clear()
         notifyDataSetChanged()
     }
