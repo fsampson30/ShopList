@@ -3,6 +3,8 @@ package com.sampson.shoplist.dao
 import androidx.annotation.WorkerThread
 import com.sampson.shoplist.model.Category
 import com.sampson.shoplist.model.Item
+import com.sampson.shoplist.model.ItemsList
+import com.sampson.shoplist.model.List
 import kotlinx.coroutines.flow.Flow
 
 class ShopRepository(private val shopDao: ShopDao) {
@@ -18,6 +20,16 @@ class ShopRepository(private val shopDao: ShopDao) {
     @WorkerThread
     suspend fun insertCategory(category: Category){
         shopDao.insertCategory(category)
+    }
+
+    @WorkerThread
+    suspend fun insertList(list: List){
+        shopDao.insertList(list)
+    }
+
+    @WorkerThread
+    suspend fun insertListItems(listItems: MutableList<ItemsList>){
+        shopDao.insertListItems(listItems)
     }
 
     fun selectItem(text: String) : Flow<MutableList<Item>>{

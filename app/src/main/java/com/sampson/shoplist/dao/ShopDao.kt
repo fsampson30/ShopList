@@ -1,9 +1,8 @@
 package com.sampson.shoplist.dao
 
 import androidx.room.*
-import com.sampson.shoplist.model.Category
-import com.sampson.shoplist.model.Item
-import com.sampson.shoplist.model.PopulateModel
+import com.sampson.shoplist.model.*
+import com.sampson.shoplist.model.List
 import com.sampson.shoplist.model.PopulateModel.populateCategory
 import com.sampson.shoplist.model.PopulateModel.populateItem
 import kotlinx.coroutines.flow.Flow
@@ -36,9 +35,17 @@ interface ShopDao {
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     suspend fun insertCategory(category: Category)
 
+    @Insert(onConflict = OnConflictStrategy.IGNORE)
+    fun insertList(list: List)
+
+    @Insert(onConflict = OnConflictStrategy.IGNORE)
+    fun insertListItems(listItems: MutableList<ItemsList>)
+
     @Delete
     suspend fun deleteItem(item: Item)
 
     @Delete
     suspend fun deleteCategory(category: Category)
+
+
 }

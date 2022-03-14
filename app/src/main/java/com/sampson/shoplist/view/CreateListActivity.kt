@@ -19,11 +19,16 @@ import com.sampson.shoplist.dao.ShopApplication
 import com.sampson.shoplist.model.List
 import com.sampson.shoplist.viewmodel.ItemViewModel
 import com.sampson.shoplist.viewmodel.ItemViewModelFactory
+import com.sampson.shoplist.viewmodel.ListViewModel
 
 class CreateListActivity : AppCompatActivity() {
 
     private val itemViewModel: ItemViewModel by viewModels {
         ItemViewModelFactory((application as ShopApplication).repository)
+    }
+
+    private val listViewModel: ListViewModel by viewModels{
+        ListViewModel.ListViewModelFactory((application as ShopApplication).repository)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
