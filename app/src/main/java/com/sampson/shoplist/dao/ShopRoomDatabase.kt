@@ -7,11 +7,13 @@ import androidx.room.RoomDatabase
 import androidx.sqlite.db.SupportSQLiteDatabase
 import com.sampson.shoplist.model.Category
 import com.sampson.shoplist.model.Item
+import com.sampson.shoplist.model.ItemsList
+import com.sampson.shoplist.model.List
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 
 @Database(
-    entities = arrayOf(Item::class, Category::class),
+    entities = arrayOf(Item::class, Category::class,ItemsList::class, List::class),
     version = 1,
     exportSchema = false
 )

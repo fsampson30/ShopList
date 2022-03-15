@@ -9,6 +9,7 @@ data class ItemsList(
     var item_code: Int = 0,
     var item_name: String = "",
     var list_code: Int = 0,
+    var list_name: String = "",
     var quantity: Int = 0
 
 
