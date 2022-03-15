@@ -1,13 +1,16 @@
 package com.sampson.shoplist.view
 
+import android.content.DialogInterface
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.text.InputType
 import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
 import androidx.activity.viewModels
+import androidx.appcompat.app.AlertDialog
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
@@ -20,6 +23,7 @@ import com.sampson.shoplist.model.List
 import com.sampson.shoplist.viewmodel.ItemViewModel
 import com.sampson.shoplist.viewmodel.ItemViewModelFactory
 import com.sampson.shoplist.viewmodel.ListViewModel
+import com.sampson.shoplist.viewmodel.ListViewModelFactory
 
 class CreateListActivity : AppCompatActivity() {
 
@@ -28,7 +32,7 @@ class CreateListActivity : AppCompatActivity() {
     }
 
     private val listViewModel: ListViewModel by viewModels{
-        ListViewModel.ListViewModelFactory((application as ShopApplication).repository)
+        ListViewModelFactory((application as ShopApplication).repository)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -52,6 +56,8 @@ class CreateListActivity : AppCompatActivity() {
         val createList = CreateListAdapter(baseContext)
         rvAddItems.adapter = createList
 
+        val listHash = RandomUtils.returnRandomInt()
+
         itemViewModel.allItems.observe(this) { items ->
             items.let { itemAdapter.submitList(it) }
         }
@@ -61,8 +67,27 @@ class CreateListActivity : AppCompatActivity() {
         }
 
         btnConfirmList.setOnClickListener {
-            val listHash = RandomUtils.returnRandomInt()
-            val list = List(0,edtShopDate.text.toString(),listHash,"",0.0)
+            val input = EditText(this).apply {
+                hint = "Digite o nome da lista..."
+                inputType = InputType.TYPE_CLASS_TEXT
+            }
+            AlertDialog.Builder(this).apply {
+                setView(input)
+                setNegativeButton("Cancel",null)
+                setPositiveButton("OK",DialogInterface.OnClickListener{ _, _ ->
+                    if (input.text.isEmpty()){
+                        return@OnClickListener
+                    } else {
+                        val list = List(0,edtShopDate.text.toString(),listHash,input.text.toString(),0.0)
+                        val items = createList.retrieveItemsList()
+                        listViewModel.insertList(list)
+                        listViewModel.insertItemsList(items)
+                        edtShopDate.text.clear()
+                        edtSearchItem.text.clear()
+                    }
+                }).show()
+            }
+            Toast.makeText(this@CreateListActivity,"Lista ${input.text.toString()} adicionada corretamente",Toast.LENGTH_SHORT)
         }
 
         pullToRefresh.setOnRefreshListener {
@@ -103,7 +128,7 @@ class CreateListActivity : AppCompatActivity() {
             override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
                 val position = viewHolder.adapterPosition
                 val item = itemAdapter.getItemAtPosition(position)
-                createList.addItem(item)
+                createList.addItem(item, listHash)
                 itemViewModel.allItems.observe(this@CreateListActivity) { items ->
                     items.let { itemAdapter.submitList(it) }
                 }

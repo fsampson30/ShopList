@@ -19,13 +19,14 @@ class ListViewModel(private val repository: ShopRepository) : ViewModel() {
         repository.insertListItems(list)
     }
 
-    class ListViewModelFactory(private val repository: ShopRepository) : ViewModelProvider.Factory {
-        override fun <T : ViewModel> create(modelClass: Class<T>): T {
-            if (modelClass.isAssignableFrom(ListViewModel::class.java)) {
-                @Suppress("UNCHECKED_CAST")
-                return ListViewModel(repository) as T
-            }
-            throw IllegalArgumentException("Unknown ViewModel class")
+}
+
+class ListViewModelFactory(private val repository: ShopRepository) : ViewModelProvider.Factory {
+    override fun <T : ViewModel> create(modelClass: Class<T>): T {
+        if (modelClass.isAssignableFrom(ListViewModel::class.java)) {
+            @Suppress("UNCHECKED_CAST")
+            return ListViewModel(repository) as T
         }
+        throw IllegalArgumentException("Unknown ViewModel class")
     }
 }

@@ -36,10 +36,10 @@ interface ShopDao {
     suspend fun insertCategory(category: Category)
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
-    fun insertList(list: List)
+    suspend fun insertList(list: List)
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
-    fun insertListItems(listItems: MutableList<ItemsList>)
+    suspend fun insertListItems(listItems: MutableList<ItemsList>)
 
     @Delete
     suspend fun deleteItem(item: Item)

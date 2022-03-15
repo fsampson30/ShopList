@@ -36,9 +36,9 @@ class CreateListAdapter(
 
     override fun getItemCount() = itemsList.size
 
-    fun addItem(item: Item) {
+    fun addItem(item: Item, listHash: String) {
         this.item = item
-        val currentItemList = ItemsList(0, item.id, item.name, 0, 0)
+        val currentItemList = ItemsList(0, item.id, item.name, listHash, 0)
 
         if (itemsList.isEmpty()) {
             itemsList.add(currentItemList)
@@ -70,4 +70,9 @@ class CreateListAdapter(
         itemsList[position].quantity++
         notifyItemChanged(position)
     }
+
+    fun retrieveItemsList() : MutableList<ItemsList>{
+        return itemsList
+    }
+
 }
