@@ -62,7 +62,7 @@ class CreateListActivity : AppCompatActivity() {
 
         btnConfirmList.setOnClickListener {
             val listHash = RandomUtils.returnRandomInt()
-            val list = List(0,edtShopDate.text.toString(),listHash,0.0)
+            val list = List(0,edtShopDate.text.toString(),listHash,"",0.0)
         }
 
         pullToRefresh.setOnRefreshListener {

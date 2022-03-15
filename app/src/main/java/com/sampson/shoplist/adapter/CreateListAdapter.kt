@@ -38,7 +38,7 @@ class CreateListAdapter(
 
     fun addItem(item: Item) {
         this.item = item
-        val currentItemList = ItemsList(0, item.id, item.name, 0, "",0)
+        val currentItemList = ItemsList(0, item.id, item.name, 0, 0)
 
         if (itemsList.isEmpty()) {
             itemsList.add(currentItemList)
