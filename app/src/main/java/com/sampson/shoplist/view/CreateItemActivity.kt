@@ -37,7 +37,6 @@ class CreateItemActivity : AppCompatActivity() {
             if (txtCreateItem.text.isEmpty()) {
                 txtCreateItem.error = "Obrigatório"
             } else {
-                Toast.makeText(this, "Confirmando", Toast.LENGTH_SHORT).show()
                 val itemName = txtCreateItem.text.toString()
                 val itemCategory = spinner.selectedItem.toString()
                 val replyIntent = Intent()

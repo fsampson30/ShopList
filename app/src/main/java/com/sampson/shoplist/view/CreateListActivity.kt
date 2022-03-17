@@ -31,7 +31,7 @@ class CreateListActivity : AppCompatActivity() {
         ItemViewModelFactory((application as ShopApplication).repository)
     }
 
-    private val listViewModel: ListViewModel by viewModels{
+    private val listViewModel: ListViewModel by viewModels {
         ListViewModelFactory((application as ShopApplication).repository)
     }
 
@@ -43,6 +43,7 @@ class CreateListActivity : AppCompatActivity() {
         val btnConfirmList: Button = findViewById(R.id.btnConfirmListCreateListActitivy)
         val edtSearchItem: EditText = findViewById(R.id.edtSearchItemCreateListActivity)
         val edtShopDate: EditText = findViewById(R.id.edtShopDateCreateListActivity)
+        val edtListName: EditText = findViewById(R.id.edtListNameCreateListActivity)
 
         val rvShowItems: RecyclerView = findViewById(R.id.rvShowItemsCreateListActivity)
         val rvAddItems: RecyclerView = findViewById(R.id.rvAddItemsCreateListActivity)
@@ -67,27 +68,17 @@ class CreateListActivity : AppCompatActivity() {
         }
 
         btnConfirmList.setOnClickListener {
-            val input = EditText(this).apply {
-                hint = "Digite o nome da lista..."
-                inputType = InputType.TYPE_CLASS_TEXT
+            if (edtShopDate.text.isEmpty() || edtListName.text.isEmpty()) {
+                edtShopDate.error = "Obrigatório"
+                edtListName.error = "Obrigatório"
+            } else {
+                val list = List(0, edtShopDate.text.toString(), listHash, edtListName.text.toString(), 0.0)
+                val items = createList.retrieveItemsList()
+                listViewModel.insertList(list)
+                listViewModel.insertItemsList(items)
+                Toast.makeText(this@CreateListActivity,"Lista ${edtListName.text.toString()} adicionada corretamente", Toast.LENGTH_SHORT).show()
+                finish()
             }
-            AlertDialog.Builder(this).apply {
-                setView(input)
-                setNegativeButton("Cancel",null)
-                setPositiveButton("OK",DialogInterface.OnClickListener{ _, _ ->
-                    if (input.text.isEmpty()){
-                        return@OnClickListener
-                    } else {
-                        val list = List(0,edtShopDate.text.toString(),listHash,input.text.toString(),0.0)
-                        val items = createList.retrieveItemsList()
-                        listViewModel.insertList(list)
-                        listViewModel.insertItemsList(items)
-                        edtShopDate.text.clear()
-                        edtSearchItem.text.clear()
-                    }
-                }).show()
-            }
-            Toast.makeText(this@CreateListActivity,"Lista ${input.text.toString()} adicionada corretamente",Toast.LENGTH_SHORT)
         }
 
         pullToRefresh.setOnRefreshListener {
@@ -116,7 +107,7 @@ class CreateListActivity : AppCompatActivity() {
             }
         }
 
-        val helperAddItem = object : ItemTouchHelper.SimpleCallback(0,ItemTouchHelper.RIGHT){
+        val helperAddItem = object : ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.RIGHT) {
             override fun onMove(
                 recyclerView: RecyclerView,
                 viewHolder: RecyclerView.ViewHolder,
@@ -135,20 +126,21 @@ class CreateListActivity : AppCompatActivity() {
             }
         }
 
-        val helperRemoveItem = object : ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT) {
-            override fun onMove(
-                recyclerView: RecyclerView,
-                viewHolder: RecyclerView.ViewHolder,
-                target: RecyclerView.ViewHolder
-            ): Boolean {
-                return false
-            }
+        val helperRemoveItem =
+            object : ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT) {
+                override fun onMove(
+                    recyclerView: RecyclerView,
+                    viewHolder: RecyclerView.ViewHolder,
+                    target: RecyclerView.ViewHolder
+                ): Boolean {
+                    return false
+                }
 
-            override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
-                val position = viewHolder.adapterPosition
-                createList.removeItem(position)
+                override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
+                    val position = viewHolder.adapterPosition
+                    createList.removeItem(position)
+                }
             }
-        }
 
         val helperAddQtt = object : ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.RIGHT) {
             override fun onMove(

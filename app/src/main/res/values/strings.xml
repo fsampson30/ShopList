@@ -16,4 +16,5 @@
     <string name="digite_a_data_da_compra">Digite a data da compra...</string>
     <string name="limpa_lista">Limpa Lista</string>
     <string name="confirma_lista">Confirma Lista</string>
+    <string name="digite_o_nome_da_lista">Digite o nome da lista...</string>
 </resources>

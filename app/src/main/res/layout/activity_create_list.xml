@@ -58,7 +58,8 @@
         app:layout_constraintBottom_toTopOf="@id/edtShopDateCreateListActivity"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/refreshRvShowItemsCreateListActivity"
-        app:layout_constraintTop_toBottomOf="@+id/edtSearchItemCreateListActivity" />
+        app:layout_constraintTop_toBottomOf="@+id/edtSearchItemCreateListActivity"
+        app:layout_constraintVertical_bias="0.0" />
 
     <EditText
         android:id="@+id/edtShopDateCreateListActivity"
@@ -68,10 +69,23 @@
         android:ems="10"
         android:hint="@string/digite_a_data_da_compra"
         android:inputType="date"
-        app:layout_constraintBottom_toTopOf="@id/llButtonsCreateListActivity"
+        app:layout_constraintBottom_toTopOf="@id/edtListNameCreateListActivity"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/refreshRvShowItemsCreateListActivity" />
+
+    <EditText
+        android:id="@+id/edtListNameCreateListActivity"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:ems="10"
+        android:hint="@string/digite_o_nome_da_lista"
+        android:inputType="text"
+        app:layout_constraintBottom_toTopOf="@id/llButtonsCreateListActivity"
+        app:layout_constraintStart_toEndOf="@id/edtShopDateCreateListActivity"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/edtShopDateCreateListActivity" />
 
     <LinearLayout
         android:id="@+id/llButtonsCreateListActivity"
@@ -82,7 +96,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/edtShopDateCreateListActivity">
+        app:layout_constraintTop_toBottomOf="@id/edtListNameCreateListActivity">
 
         <Button
             android:id="@+id/btnClearListCreateListActivity"
