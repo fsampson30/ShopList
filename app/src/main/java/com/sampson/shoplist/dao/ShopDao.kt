@@ -23,6 +23,9 @@ interface ShopDao {
     @Query("SELECT * FROM table_category ORDER BY category_name")
     fun getAllCategories(): Flow<MutableList<Category>>
 
+    @Query("SELECT l.id, l.list_code, max(l.shop_date) as shop_date, l.total_value, l.list_name  FROM table_list l")
+    fun getLastShopInformation() : Flow<List>
+
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     suspend fun insertAllItems(items: MutableList<Item> = populateItem())
 

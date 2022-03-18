@@ -1,8 +1,6 @@
 package com.sampson.shoplist.viewmodel
 
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.*
 import com.sampson.shoplist.dao.ShopRepository
 import com.sampson.shoplist.model.ItemsList
 import com.sampson.shoplist.model.List
@@ -10,6 +8,8 @@ import kotlinx.coroutines.launch
 import java.lang.IllegalArgumentException
 
 class ListViewModel(private val repository: ShopRepository) : ViewModel() {
+
+    val lastShopInformation : LiveData<List> = repository.lastShopInformation.asLiveData()
 
     fun insertList(list: List) = viewModelScope.launch {
         repository.insertList(list)
