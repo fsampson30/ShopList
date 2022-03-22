@@ -4,8 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="horizontal"
-    android:padding="16dp">
+    android:orientation="horizontal">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -13,92 +12,78 @@
         android:background="@drawable/shape_white"
         tools:context=".view.MainActivity">
 
-        <TextView
-            android:id="@+id/txtMainActivityTodaysDate"
-            android:layout_width="wrap_content"
+        <CalendarView
+            android:id="@+id/calendarViewMainActivity"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/todays_date"
-            android:textSize="20sp"
-            android:textStyle="bold"
-            app:layout_constraintBottom_toBottomOf="@id/txtMainActivityLastShopValue"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toLeftOf="@id/txtMainActivityLastShopDate"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <TextView
-            android:id="@+id/txtMainActivityLastShopDate"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/last_shop_date"
-            android:textSize="20sp"
-            android:textStyle="bold"
-            app:layout_constraintBottom_toBottomOf="@id/txtMainActivityLastShopValue"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/txtMainActivityTodaysDate"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <TextView
-            android:id="@+id/txtMainActivityLastShopValue"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/last_shop_value"
-            android:textSize="20sp"
-            android:textStyle="bold"
-            app:layout_constraintBottom_toTopOf="@id/imgViewMainActivityRetrieveList"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/txtMainActivityTodaysDate"
-            app:layout_constraintTop_toBottomOf="@+id/txtMainActivityLastShopDate" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/imgViewMainActivityNewList"/>
 
         <ImageView
             android:id="@+id/imgViewMainActivityNewList"
-            android:layout_width="80dp"
-            android:layout_height="80dp"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
             android:src="@drawable/addcart"
-            app:layout_constraintBottom_toTopOf="@+id/imgViewMainActivityItems"
-            app:layout_constraintEnd_toStartOf="@+id/txtMainActivityLastShopValue"
+            android:layout_marginTop="16dp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/txtMainActivityLastShopValue" />
+            app:layout_constraintTop_toBottomOf="@id/calendarViewMainActivity"
+            app:layout_constraintEnd_toStartOf="@id/imgViewMainActivityRetrieveList"
+            app:layout_constraintBottom_toTopOf="@+id/imgViewMainActivityMarkets"/>
 
         <ImageView
             android:id="@+id/imgViewMainActivityRetrieveList"
-            android:layout_width="80dp"
-            android:layout_height="80dp"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
             android:src="@drawable/fullcart"
-            app:layout_constraintBottom_toTopOf="@id/imgViewMainActivityHistoric"
-            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginTop="16dp"
             app:layout_constraintStart_toEndOf="@id/imgViewMainActivityNewList"
-            app:layout_constraintTop_toBottomOf="@+id/txtMainActivityLastShopValue" />
+            app:layout_constraintBottom_toTopOf="@id/imgViewMainActivityHistoric"
+            app:layout_constraintEnd_toStartOf="@id/imgViewMainActivityItems"
+            app:layout_constraintTop_toBottomOf="@id/calendarViewMainActivity" />
 
         <ImageView
             android:id="@+id/imgViewMainActivityItems"
-            android:layout_width="80dp"
-            android:layout_height="80dp"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
             android:src="@drawable/stand"
-            app:layout_constraintBottom_toTopOf="@id/imgViewMainActivityMarkets"
-            app:layout_constraintEnd_toStartOf="@+id/txtMainActivityLastShopValue"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/imgViewMainActivityRetrieveList" />
+            android:layout_marginTop="16dp"
+            app:layout_constraintStart_toEndOf="@id/imgViewMainActivityRetrieveList"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/calendarViewMainActivity"
+            app:layout_constraintBottom_toTopOf="@id/imgViewMainActivityExit" />
 
         <ImageView
             android:id="@+id/imgViewMainActivityHistoric"
-            android:layout_width="80dp"
-            android:layout_height="80dp"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_marginTop="16dp"
             android:src="@drawable/history"
-            app:layout_constraintBottom_toTopOf="@id/imgViewMainActivityMarkets"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@id/imgViewMainActivityNewList"
+            app:layout_constraintEnd_toStartOf="@id/imgViewMainActivityExit"
+            app:layout_constraintStart_toEndOf="@id/imgViewMainActivityMarkets"
             app:layout_constraintTop_toBottomOf="@+id/imgViewMainActivityRetrieveList" />
 
         <ImageView
             android:id="@+id/imgViewMainActivityMarkets"
-            android:layout_width="80dp"
-            android:layout_height="80dp"
-            android:layout_marginBottom="32dp"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_marginTop="16dp"
             android:src="@drawable/supermarkets"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/txtMainActivityLastShopValue"
+            app:layout_constraintEnd_toStartOf="@id/imgViewMainActivityHistoric"
             app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/imgViewMainActivityNewList" />
+
+        <ImageView
+            android:id="@+id/imgViewMainActivityExit"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_marginTop="16dp"
+            android:src="@drawable/exit"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/imgViewMainActivityHistoric"
             app:layout_constraintTop_toBottomOf="@+id/imgViewMainActivityItems" />
+
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </LinearLayout>

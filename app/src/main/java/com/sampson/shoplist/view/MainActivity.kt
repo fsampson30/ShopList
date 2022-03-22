@@ -14,12 +14,9 @@ import com.sampson.shoplist.dao.ShopApplication
 import com.sampson.shoplist.model.List
 import com.sampson.shoplist.viewmodel.ListViewModel
 import com.sampson.shoplist.viewmodel.ListViewModelFactory
+import kotlin.system.exitProcess
 
 class MainActivity : AppCompatActivity() {
-
-    private val listViewModel: ListViewModel by viewModels {
-        ListViewModelFactory((application as ShopApplication).repository)
-    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -30,20 +27,7 @@ class MainActivity : AppCompatActivity() {
         val imgItems: ImageView = findViewById(R.id.imgViewMainActivityItems)
         val imgHistoric: ImageView = findViewById(R.id.imgViewMainActivityHistoric)
         val imgMarkets: ImageView = findViewById(R.id.imgViewMainActivityMarkets)
-
-        val txtTodayDate: TextView = findViewById(R.id.txtMainActivityTodaysDate)
-        val txtLastShopDate: TextView = findViewById(R.id.txtMainActivityLastShopDate)
-        val txtLastShopValue: TextView = findViewById(R.id.txtMainActivityLastShopValue)
-
-
-        txtTodayDate.text = getTodayDate()
-
-        listViewModel.lastShopInformation.observe(this) { last ->
-            last.let {
-                txtLastShopDate.text = it.shop_date
-                txtLastShopValue.text = it.total_value.toString()
-            }
-        }
+        val imgExit: ImageView = findViewById(R.id.imgViewMainActivityExit)
 
         imgNewList.setOnClickListener {
             val intent = Intent(baseContext, CreateListActivity::class.java)
@@ -66,6 +50,10 @@ class MainActivity : AppCompatActivity() {
         imgMarkets.setOnClickListener {
             val intent = Intent(baseContext, MarketsActivity::class.java)
             startActivity(intent)
+        }
+
+        imgExit.setOnClickListener {
+            exitProcess(0)
         }
 
     }
