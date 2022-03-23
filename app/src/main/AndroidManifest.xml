@@ -13,6 +13,11 @@
         android:supportsRtl="true"
         android:theme="@style/ColorOne">
         <activity
+            android:name=".view.ShowListsActivity"
+            android:exported="false"
+            android:label="Listas Criadas"
+            android:parentActivityName=".view.MainActivity"/>
+        <activity
             android:name=".view.CreateListActivity"
             android:exported="false"
             android:label="@string/criar_lista"

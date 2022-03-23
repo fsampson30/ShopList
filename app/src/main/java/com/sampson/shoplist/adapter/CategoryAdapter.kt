@@ -11,7 +11,6 @@ import com.sampson.shoplist.R
 import com.sampson.shoplist.controller.ImageResources.getImageResource
 import com.sampson.shoplist.model.Category
 
-
 class CategoryAdapter(
     private val context: Context,
     private val clickListener: CategoryClickListener

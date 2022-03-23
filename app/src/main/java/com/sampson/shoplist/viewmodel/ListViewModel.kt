@@ -11,6 +11,8 @@ class ListViewModel(private val repository: ShopRepository) : ViewModel() {
 
     val lastShopInformation : LiveData<List> = repository.lastShopInformation.asLiveData()
 
+    val allLists: LiveData<MutableList<List>> = repository.allLists.asLiveData()
+
     fun insertList(list: List) = viewModelScope.launch {
         repository.insertList(list)
     }
