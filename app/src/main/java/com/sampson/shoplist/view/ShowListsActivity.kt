@@ -1,5 +1,6 @@
 package com.sampson.shoplist.view
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.activity.viewModels
@@ -26,7 +27,8 @@ class ShowListsActivity : AppCompatActivity() {
         val showListAdapter =
             ShowListAdapter(baseContext, object : ShowListAdapter.ListClickListener {
                 override fun onListClickListener(list: List) {
-                    TODO("Not yet implemented")
+                    val intent = Intent(baseContext, ListDetailsActivity::class.java)
+                    startActivity(intent)
                 }
             })
 

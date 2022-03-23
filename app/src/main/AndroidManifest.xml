@@ -13,10 +13,15 @@
         android:supportsRtl="true"
         android:theme="@style/ColorOne">
         <activity
+            android:name=".view.ListDetailsActivity"
+            android:exported="false"
+            android:label="Itens da Lista"
+            android:parentActivityName=".view.ShowListsActivity"/>
+        <activity
             android:name=".view.ShowListsActivity"
             android:exported="false"
             android:label="Listas Criadas"
-            android:parentActivityName=".view.MainActivity"/>
+            android:parentActivityName=".view.MainActivity" />
         <activity
             android:name=".view.CreateListActivity"
             android:exported="false"
