@@ -28,7 +28,7 @@ class ShowListAdapter(
     }
 
     override fun onBindViewHolder(holder: ShowListViewHolder, position: Int) {
-        holder.txtListName.text = createdLists[position].list_name
+        holder.txtListName.text = createdLists[position].list_name.replaceFirstChar { it.uppercase() }
         holder.txtShopDate.text = createdLists[position].shop_date
         holder.itemView.setOnClickListener { clickListener.onListClickListener(createdLists[position]) }
     }

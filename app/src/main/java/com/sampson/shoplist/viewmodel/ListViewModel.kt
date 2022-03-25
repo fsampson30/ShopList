@@ -13,6 +13,8 @@ class ListViewModel(private val repository: ShopRepository) : ViewModel() {
 
     val allLists: LiveData<MutableList<List>> = repository.allLists.asLiveData()
 
+    fun selectItemsByCode(param: String) = repository.selectItemsByCode(param).asLiveData()
+
     fun insertList(list: List) = viewModelScope.launch {
         repository.insertList(list)
     }

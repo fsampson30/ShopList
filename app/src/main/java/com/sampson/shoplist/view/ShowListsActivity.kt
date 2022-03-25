@@ -27,7 +27,9 @@ class ShowListsActivity : AppCompatActivity() {
         val showListAdapter =
             ShowListAdapter(baseContext, object : ShowListAdapter.ListClickListener {
                 override fun onListClickListener(list: List) {
-                    val intent = Intent(baseContext, ListDetailsActivity::class.java)
+                    val intent = Intent(baseContext, ListDetailsActivity::class.java).apply {
+                        putExtra("code",list.list_code)
+                    }
                     startActivity(intent)
                 }
             })

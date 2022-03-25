@@ -29,6 +29,9 @@ interface ShopDao {
     @Query("SELECT * FROM table_list ORDER BY id DESC")
     fun getAllLists(): Flow<MutableList<List>>
 
+    @Query("SELECT * FROM table_items_list WHERE list_code = :param ORDER BY item_name")
+    fun getListByCode(param : String): Flow<MutableList<ItemsList>>
+
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     suspend fun insertAllItems(items: MutableList<Item> = populateItem())
 

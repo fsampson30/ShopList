@@ -42,6 +42,10 @@ class ShopRepository(private val shopDao: ShopDao) {
         return shopDao.getItemsByCategory(id)
     }
 
+    fun selectItemsByCode(param: String) : Flow<MutableList<ItemsList>>{
+        return shopDao.getListByCode(param)
+    }
+
     suspend fun deleteItem(item: Item){
         shopDao.deleteItem(item)
     }
