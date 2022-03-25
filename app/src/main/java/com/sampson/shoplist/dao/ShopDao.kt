@@ -24,13 +24,13 @@ interface ShopDao {
     fun getAllCategories(): Flow<MutableList<Category>>
 
     @Query("SELECT l.id, l.list_code, max(l.shop_date) as shop_date, l.total_value, l.list_name  FROM table_list l")
-    fun getLastShopInformation() : Flow<List>
+    fun getLastShopInformation(): Flow<List>
 
     @Query("SELECT * FROM table_list ORDER BY id DESC")
     fun getAllLists(): Flow<MutableList<List>>
 
-    @Query("SELECT * FROM table_items_list WHERE list_code = :param ORDER BY item_name")
-    fun getListByCode(param : String): Flow<MutableList<ItemsList>>
+    @Query("SELECT l.id, l.item_code, l.item_name, l.list_code, l.quantity, i.category FROM table_items_list l JOIN table_item i on l.item_code = i.id WHERE l.list_code = :param ORDER BY l.item_name")
+    fun getListByCode(param: String): Flow<MutableList<ItemsListCategory>>
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     suspend fun insertAllItems(items: MutableList<Item> = populateItem())

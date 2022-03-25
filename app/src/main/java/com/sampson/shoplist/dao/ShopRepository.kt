@@ -1,9 +1,7 @@
 package com.sampson.shoplist.dao
 
 import androidx.annotation.WorkerThread
-import com.sampson.shoplist.model.Category
-import com.sampson.shoplist.model.Item
-import com.sampson.shoplist.model.ItemsList
+import com.sampson.shoplist.model.*
 import com.sampson.shoplist.model.List
 import kotlinx.coroutines.flow.Flow
 
@@ -42,7 +40,7 @@ class ShopRepository(private val shopDao: ShopDao) {
         return shopDao.getItemsByCategory(id)
     }
 
-    fun selectItemsByCode(param: String) : Flow<MutableList<ItemsList>>{
+    fun selectItemsByCode(param: String) : Flow<MutableList<ItemsListCategory>>{
         return shopDao.getListByCode(param)
     }
 

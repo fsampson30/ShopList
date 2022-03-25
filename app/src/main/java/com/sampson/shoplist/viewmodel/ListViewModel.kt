@@ -15,6 +15,7 @@ class ListViewModel(private val repository: ShopRepository) : ViewModel() {
 
     fun selectItemsByCode(param: String) = repository.selectItemsByCode(param).asLiveData()
 
+
     fun insertList(list: List) = viewModelScope.launch {
         repository.insertList(list)
     }

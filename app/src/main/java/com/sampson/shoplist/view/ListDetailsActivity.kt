@@ -1,6 +1,5 @@
 package com.sampson.shoplist.view
 
-import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.activity.viewModels
@@ -8,13 +7,12 @@ import androidx.recyclerview.widget.RecyclerView
 import com.sampson.shoplist.R
 import com.sampson.shoplist.adapter.ListDetailsAdapter
 import com.sampson.shoplist.dao.ShopApplication
-import com.sampson.shoplist.model.ItemsList
 import com.sampson.shoplist.viewmodel.ListViewModel
 import com.sampson.shoplist.viewmodel.ListViewModelFactory
 
 class ListDetailsActivity : AppCompatActivity() {
 
-    val listViewModel: ListViewModel by viewModels {
+    private val listViewModel: ListViewModel by viewModels {
         ListViewModelFactory((application as ShopApplication).repository)
     }
 
@@ -29,7 +27,7 @@ class ListDetailsActivity : AppCompatActivity() {
         rvListLitems.adapter = itensAdapter
 
         listViewModel.selectItemsByCode(param).observe(this) { items ->
-            items.let { itensAdapter.sumbitList(it) }
+            items.let { itensAdapter.submitList(it) }
         }
     }
 }

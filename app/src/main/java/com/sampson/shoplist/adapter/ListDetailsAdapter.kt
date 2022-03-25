@@ -10,17 +10,19 @@ import androidx.recyclerview.widget.RecyclerView
 import com.sampson.shoplist.R
 import com.sampson.shoplist.controller.ImageResources
 import com.sampson.shoplist.model.ItemsList
+import com.sampson.shoplist.model.ItemsListCategory
 
 class ListDetailsAdapter(
-    val context : Context
-) : RecyclerView.Adapter<ListDetailsAdapter.ListDetailsViewHolder>(){
+    val context: Context
+) : RecyclerView.Adapter<ListDetailsAdapter.ListDetailsViewHolder>() {
 
-    var itemsList = mutableListOf<ItemsList>()
+    var itemsList = mutableListOf<ItemsListCategory>()
+    var code: Int = 0
 
     class ListDetailsViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val imgItem = itemView.findViewById<ImageView>(R.id.imgListItemsCardPicture)
-        val txtItemName = itemView.findViewById<TextView>(R.id.txtListItemsCardItemName)
-        val txtItemQuantity = itemView.findViewById<TextView>(R.id.txtQttListItemsActivity)
+        val imgItem: ImageView = itemView.findViewById(R.id.imgListItemsCardPicture)
+        val txtItemName: TextView = itemView.findViewById(R.id.txtListItemsCardItemName)
+        val txtItemQuantity: TextView = itemView.findViewById(R.id.txtQttListItemsActivity)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ListDetailsViewHolder {
@@ -29,15 +31,19 @@ class ListDetailsAdapter(
     }
 
     override fun onBindViewHolder(holder: ListDetailsViewHolder, position: Int) {
-        holder.imgItem.setImageResource(R.drawable.others)
+        holder.imgItem.setImageResource(ImageResources.getImageResource(itemsList[position].category))
         holder.txtItemName.text = itemsList[position].item_name
         holder.txtItemQuantity.text = itemsList[position].quantity.toString()
     }
 
     override fun getItemCount(): Int = itemsList.size
 
-    fun sumbitList(list : MutableList<ItemsList>){
+    fun submitList(list: MutableList<ItemsListCategory>) {
         this.itemsList = list
         notifyDataSetChanged()
+    }
+
+    fun setCategoryCode(code: Int) {
+        this.code = code
     }
 }
