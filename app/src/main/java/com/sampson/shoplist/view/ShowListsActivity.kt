@@ -29,6 +29,7 @@ class ShowListsActivity : AppCompatActivity() {
                 override fun onListClickListener(list: List) {
                     val intent = Intent(baseContext, ListDetailsActivity::class.java).apply {
                         putExtra("code",list.list_code)
+                        putExtra("totalValue", list.total_value)
                     }
                     startActivity(intent)
                 }

@@ -2,7 +2,12 @@ package com.sampson.shoplist.view
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.widget.Button
+import android.widget.EditText
+import android.widget.TextView
+import android.widget.Toast
 import androidx.activity.viewModels
+import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
 import com.sampson.shoplist.R
 import com.sampson.shoplist.adapter.ListDetailsAdapter
@@ -21,13 +26,43 @@ class ListDetailsActivity : AppCompatActivity() {
         setContentView(R.layout.activity_list_details)
 
         val param = intent.extras?.get("code") as String
+        val value = intent.extras?.get("totalValue") as Double
 
-        val rvListLitems = findViewById<RecyclerView>(R.id.rvShowItemsListDetailsActivity)
-        val itensAdapter = ListDetailsAdapter(baseContext)
-        rvListLitems.adapter = itensAdapter
+        val rvListItems: RecyclerView = findViewById(R.id.rvShowItemsListDetailsActivity)
+        val edtTotalValue: EditText = findViewById(R.id.edtTotalValueListDetailsActivity)
+        val btnSubmitValue: Button = findViewById(R.id.btnSubmitTotalValueListDetailsActivity)
+
+        edtTotalValue.setText(value.toString(), TextView.BufferType.EDITABLE)
+
+
+        val itemsAdapter = ListDetailsAdapter(baseContext)
+        rvListItems.adapter = itemsAdapter
 
         listViewModel.selectItemsByCode(param).observe(this) { items ->
-            items.let { itensAdapter.submitList(it) }
+            items.let { itemsAdapter.submitList(it) }
         }
+
+        btnSubmitValue.setOnClickListener {
+            Toast.makeText(this,"TEST",Toast.LENGTH_SHORT).show()
+        }
+
+        val helperPaintTextView =
+            object : ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.RIGHT) {
+                override fun onMove(
+                    recyclerView: RecyclerView,
+                    viewHolder: RecyclerView.ViewHolder,
+                    target: RecyclerView.ViewHolder
+                ): Boolean {
+                    return false
+                }
+
+                override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
+                    Toast.makeText(baseContext,"TEST",Toast.LENGTH_SHORT).show()
+                }
+
+            }
+
+        val helperPaint = ItemTouchHelper(helperPaintTextView)
+        helperPaint.attachToRecyclerView(rvListItems)
     }
 }

@@ -43,7 +43,7 @@ class ListDetailsAdapter(
         notifyDataSetChanged()
     }
 
-    fun setCategoryCode(code: Int) {
-        this.code = code
+    fun paintTextView(position: Int) {
+        
     }
 }
