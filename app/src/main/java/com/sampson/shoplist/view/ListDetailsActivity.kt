@@ -2,6 +2,7 @@ package com.sampson.shoplist.view
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.inputmethod.InputMethodManager
 import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
@@ -43,7 +44,17 @@ class ListDetailsActivity : AppCompatActivity() {
         }
 
         btnSubmitValue.setOnClickListener {
-            Toast.makeText(this,"TEST",Toast.LENGTH_SHORT).show()
+            val totalValue = edtTotalValue.text.toString().toDouble()
+            if (totalValue==0.0){
+                edtTotalValue.error = "Valor zerado"
+            } else {
+                listViewModel.updateTotalValue(totalValue,param)
+                Toast.makeText(baseContext,"Valor atualizado.",Toast.LENGTH_SHORT).show()
+                val inputManager: InputMethodManager = getSystemService(
+                    INPUT_METHOD_SERVICE
+                ) as InputMethodManager
+                inputManager.hideSoftInputFromWindow(edtTotalValue.windowToken, 0)
+            }
         }
 
         val helperPaintTextView =

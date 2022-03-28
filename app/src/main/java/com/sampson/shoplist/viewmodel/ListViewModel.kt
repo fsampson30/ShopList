@@ -15,6 +15,10 @@ class ListViewModel(private val repository: ShopRepository) : ViewModel() {
 
     fun selectItemsByCode(param: String) = repository.selectItemsByCode(param).asLiveData()
 
+    fun updateTotalValue(value : Double, code : String) = viewModelScope.launch{
+        repository.updateTotalValue(value, code)
+    }
+
 
     fun insertList(list: List) = viewModelScope.launch {
         repository.insertList(list)
