@@ -1,13 +1,16 @@
 package com.sampson.shoplist.view
 
+import android.content.DialogInterface
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.text.InputType
 import android.view.inputmethod.InputMethodManager
 import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.viewModels
+import androidx.appcompat.app.AlertDialog
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
 import com.sampson.shoplist.R
@@ -30,11 +33,8 @@ class ListDetailsActivity : AppCompatActivity() {
         val value = intent.extras?.get("totalValue") as Double
 
         val rvListItems: RecyclerView = findViewById(R.id.rvShowItemsListDetailsActivity)
-        val edtTotalValue: EditText = findViewById(R.id.edtTotalValueListDetailsActivity)
         val btnSubmitValue: Button = findViewById(R.id.btnSubmitTotalValueListDetailsActivity)
-
-        edtTotalValue.setText(value.toString(), TextView.BufferType.EDITABLE)
-
+        val txtTotalValue: TextView = findViewById(R.id.lblShowTotalValueListDetailsActivity)
 
         val itemsAdapter = ListDetailsAdapter(baseContext)
         rvListItems.adapter = itemsAdapter
@@ -43,18 +43,30 @@ class ListDetailsActivity : AppCompatActivity() {
             items.let { itemsAdapter.submitList(it) }
         }
 
+        txtTotalValue.text = "Valor total da compra: ${value.toString()}"
+
         btnSubmitValue.setOnClickListener {
-            val totalValue = edtTotalValue.text.toString().toDouble()
-            if (totalValue==0.0){
-                edtTotalValue.error = "Valor zerado"
-            } else {
-                listViewModel.updateTotalValue(totalValue,param)
-                Toast.makeText(baseContext,"Valor atualizado.",Toast.LENGTH_SHORT).show()
-                val inputManager: InputMethodManager = getSystemService(
-                    INPUT_METHOD_SERVICE
-                ) as InputMethodManager
-                inputManager.hideSoftInputFromWindow(edtTotalValue.windowToken, 0)
+            val input = EditText(this).apply {
+                hint = "Adicionar novo valor..."
+                inputType = InputType.TYPE_NUMBER_FLAG_DECIMAL
             }
+            AlertDialog.Builder(this).apply {
+                setView(input)
+                setNegativeButton("Cancel", null)
+                setPositiveButton("OK", DialogInterface.OnClickListener { _, _ ->
+                    if (input.text.isEmpty()) {
+                        return@OnClickListener
+                    } else {
+                        listViewModel.updateTotalValue(input.text.toString().toDouble(), param)
+                        Toast.makeText(baseContext, "Valor atualizado.", Toast.LENGTH_SHORT).show()
+                        val inputManager: InputMethodManager = getSystemService(
+                            INPUT_METHOD_SERVICE
+                        ) as InputMethodManager
+                        inputManager.hideSoftInputFromWindow(input.windowToken, 0)
+                        txtTotalValue.text = "Valor total da compra: ${input.text.toString()}"
+                    }
+                })
+            }.show()
         }
 
         val helperPaintTextView =
