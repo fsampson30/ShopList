@@ -11,7 +11,6 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AlertDialog
-import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
 import com.sampson.shoplist.R
 import com.sampson.shoplist.adapter.ListDetailsAdapter
@@ -68,24 +67,5 @@ class ListDetailsActivity : AppCompatActivity() {
                 })
             }.show()
         }
-
-        val helperPaintTextView =
-            object : ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.RIGHT) {
-                override fun onMove(
-                    recyclerView: RecyclerView,
-                    viewHolder: RecyclerView.ViewHolder,
-                    target: RecyclerView.ViewHolder
-                ): Boolean {
-                    return false
-                }
-
-                override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
-                    Toast.makeText(baseContext,"TEST",Toast.LENGTH_SHORT).show()
-                }
-
-            }
-
-        val helperPaint = ItemTouchHelper(helperPaintTextView)
-        helperPaint.attachToRecyclerView(rvListItems)
     }
 }

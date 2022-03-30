@@ -1,6 +1,7 @@
 package com.sampson.shoplist.adapter
 
 import android.content.Context
+import android.graphics.Paint
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -17,7 +18,7 @@ class ListDetailsAdapter(
 ) : RecyclerView.Adapter<ListDetailsAdapter.ListDetailsViewHolder>() {
 
     var itemsList = mutableListOf<ItemsListCategory>()
-    var code: Int = 0
+    var flag = false
 
     class ListDetailsViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val imgItem: ImageView = itemView.findViewById(R.id.imgListItemsCardPicture)
@@ -34,6 +35,12 @@ class ListDetailsAdapter(
         holder.imgItem.setImageResource(ImageResources.getImageResource(itemsList[position].category))
         holder.txtItemName.text = itemsList[position].item_name
         holder.txtItemQuantity.text = itemsList[position].quantity.toString()
+        paintItem(holder.txtItemName, flag)
+        holder.itemView.setOnClickListener {
+            flag = !flag
+            paintItem(holder.txtItemName,flag)
+            paintItem(holder.txtItemQuantity,flag)
+        }
     }
 
     override fun getItemCount(): Int = itemsList.size
@@ -43,7 +50,12 @@ class ListDetailsAdapter(
         notifyDataSetChanged()
     }
 
-    fun paintTextView(position: Int) {
-        
+    fun paintItem(tvItemName : TextView, flag: Boolean) {
+        if (flag) {
+            tvItemName.paintFlags = tvItemName.paintFlags or Paint.STRIKE_THRU_TEXT_FLAG
+        } else {
+            tvItemName.paintFlags = tvItemName.paintFlags and Paint.STRIKE_THRU_TEXT_FLAG.inv()
+        }
+
     }
 }
