@@ -10,7 +10,6 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.sampson.shoplist.R
 import com.sampson.shoplist.controller.ImageResources
-import com.sampson.shoplist.model.ItemsList
 import com.sampson.shoplist.model.ItemsListCategory
 
 class ListDetailsAdapter(
@@ -18,7 +17,6 @@ class ListDetailsAdapter(
 ) : RecyclerView.Adapter<ListDetailsAdapter.ListDetailsViewHolder>() {
 
     var itemsList = mutableListOf<ItemsListCategory>()
-    var flag = false
 
     class ListDetailsViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val imgItem: ImageView = itemView.findViewById(R.id.imgListItemsCardPicture)
@@ -35,11 +33,10 @@ class ListDetailsAdapter(
         holder.imgItem.setImageResource(ImageResources.getImageResource(itemsList[position].category))
         holder.txtItemName.text = itemsList[position].item_name
         holder.txtItemQuantity.text = itemsList[position].quantity.toString()
-        paintItem(holder.txtItemName, flag)
+
         holder.itemView.setOnClickListener {
-            flag = !flag
-            paintItem(holder.txtItemName,flag)
-            paintItem(holder.txtItemQuantity,flag)
+            paintItem(holder.txtItemName)
+            paintItem(holder.txtItemQuantity)
         }
     }
 
@@ -50,11 +47,11 @@ class ListDetailsAdapter(
         notifyDataSetChanged()
     }
 
-    fun paintItem(tvItemName : TextView, flag: Boolean) {
-        if (flag) {
-            tvItemName.paintFlags = tvItemName.paintFlags or Paint.STRIKE_THRU_TEXT_FLAG
-        } else {
+    private fun paintItem(tvItemName : TextView) {
+        if (tvItemName.paintFlags and Paint.STRIKE_THRU_TEXT_FLAG > 0)  {
             tvItemName.paintFlags = tvItemName.paintFlags and Paint.STRIKE_THRU_TEXT_FLAG.inv()
+        } else {
+            tvItemName.paintFlags = tvItemName.paintFlags or Paint.STRIKE_THRU_TEXT_FLAG
         }
 
     }
