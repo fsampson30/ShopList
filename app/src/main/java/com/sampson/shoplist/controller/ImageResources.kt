@@ -17,18 +17,18 @@ object ImageResources {
                 5 -> R.drawable.frozen
                 6 -> R.drawable.caned
                 7 -> R.drawable.flour
-                8 -> R.drawable.others
-                9 -> R.drawable.others
+                8 -> R.drawable.hygiene
+                9 -> R.drawable.vegetal
                 10 -> R.drawable.milk
                 11 -> R.drawable.cleaning
-                12 -> R.drawable.others
-                13 -> R.drawable.others
-                14 -> R.drawable.others
+                12 -> R.drawable.massas
+                13 -> R.drawable.breakfast
+                14 -> R.drawable.oils
                 15 -> R.drawable.bread
                 16 -> R.drawable.fish
-                17 -> R.drawable.others
+                17 -> R.drawable.salty
                 18 -> R.drawable.spices
-                19 -> R.drawable.others
+                19 -> R.drawable.utils
                 else -> R.drawable.others
             }
         }
