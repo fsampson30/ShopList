@@ -53,6 +53,5 @@ class ListDetailsAdapter(
         } else {
             tvItemName.paintFlags = tvItemName.paintFlags or Paint.STRIKE_THRU_TEXT_FLAG
         }
-
     }
 }

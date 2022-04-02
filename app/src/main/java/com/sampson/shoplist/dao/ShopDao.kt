@@ -20,7 +20,7 @@ interface ShopDao {
     @Query("SELECT * FROM table_item WHERE category = :id ORDER BY name")
     fun getItemsByCategory(id: Int): Flow<MutableList<Item>>
 
-    @Query("SELECT * FROM table_category ORDER BY category_name")
+    @Query("SELECT * FROM table_category ORDER BY id")
     fun getAllCategories(): Flow<MutableList<Category>>
 
     @Query("SELECT l.id, l.list_code, max(l.shop_date) as shop_date, l.total_value, l.list_name  FROM table_list l")
