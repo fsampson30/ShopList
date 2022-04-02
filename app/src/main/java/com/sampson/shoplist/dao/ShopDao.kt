@@ -11,13 +11,13 @@ import kotlinx.coroutines.flow.Flow
 @Dao
 interface ShopDao {
 
-    @Query("SELECT * FROM table_item ORDER BY name")
+    @Query("SELECT * FROM table_item ORDER BY id")
     fun getAllItems(): Flow<MutableList<Item>>
 
     @Query("SELECT * FROM table_item WHERE name LIKE :text ORDER BY name")
     fun getItems(text: String): Flow<MutableList<Item>>
 
-    @Query("SELECT * FROM table_item WHERE category = :id ORDER BY name")
+    @Query("SELECT * FROM table_item WHERE category = :id ORDER BY id")
     fun getItemsByCategory(id: Int): Flow<MutableList<Item>>
 
     @Query("SELECT * FROM table_category ORDER BY id")
