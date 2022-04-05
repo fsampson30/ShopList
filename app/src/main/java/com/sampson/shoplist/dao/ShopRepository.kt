@@ -37,6 +37,11 @@ class ShopRepository(private val shopDao: ShopDao) {
         shopDao.updateTotalValue(value,code)
     }
 
+    @WorkerThread
+    suspend fun insertOneItemOnList(itemsList: ItemsList){
+        shopDao.insertOneItemOnList(itemsList)
+    }
+
     fun selectItem(text: String) : Flow<MutableList<Item>>{
         return shopDao.getItems(text)
     }

@@ -34,6 +34,7 @@ class ListDetailsActivity : AppCompatActivity() {
         val rvListItems: RecyclerView = findViewById(R.id.rvShowItemsListDetailsActivity)
         val btnSubmitValue: Button = findViewById(R.id.btnSubmitTotalValueListDetailsActivity)
         val txtTotalValue: TextView = findViewById(R.id.lblShowTotalValueListDetailsActivity)
+        val btnAddItem: Button = findViewById(R.id.btnAddItemListDetailsActivity)
 
         val itemsAdapter = ListDetailsAdapter(baseContext)
         rvListItems.adapter = itemsAdapter
@@ -42,11 +43,15 @@ class ListDetailsActivity : AppCompatActivity() {
             items.let { itemsAdapter.submitList(it) }
         }
 
-        txtTotalValue.text = "Valor total da compra: ${value.toString()}"
+        "Valor total da compra: ${value.toString()}".also { txtTotalValue.text = it }
+
+        btnAddItem.setOnClickListener {
+            Toast.makeText(baseContext, "Adding Item",Toast.LENGTH_SHORT).show()
+        }
 
         btnSubmitValue.setOnClickListener {
             val input = EditText(this).apply {
-                hint = "Adicionar novo valor..."
+                hint = "Valor da compra..."
                 inputType = InputType.TYPE_NUMBER_FLAG_DECIMAL
             }
             AlertDialog.Builder(this).apply {

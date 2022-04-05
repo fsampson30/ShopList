@@ -19,6 +19,10 @@ class ListViewModel(private val repository: ShopRepository) : ViewModel() {
         repository.updateTotalValue(value, code)
     }
 
+    fun insertOneItemOnList(itemsList: ItemsList) = viewModelScope.launch {
+        repository.insertOneItemOnList(itemsList)
+    }
+
 
     fun insertList(list: List) = viewModelScope.launch {
         repository.insertList(list)

@@ -1,6 +1,7 @@
 package com.sampson.shoplist.adapter
 
 import android.content.Context
+import android.graphics.Color
 import android.graphics.Paint
 import android.view.LayoutInflater
 import android.view.View
@@ -40,8 +41,8 @@ class ListDetailsAdapter(
         holder.cbbItemDone.isChecked = itemsList[position].isDone
 
         holder.cbbItemDone.setOnCheckedChangeListener { _, isChecked ->
-            paintItem(holder.txtItemName, isChecked)
-            paintItem(holder.txtItemQuantity, isChecked)
+            //paintItem(holder.txtItemName, isChecked)
+            //paintItem(holder.txtItemQuantity, isChecked)
             itemsList[position].isDone = !itemsList[position].isDone
         }
     }
@@ -55,9 +56,10 @@ class ListDetailsAdapter(
 
     private fun paintItem(tvItemName : TextView, isChecked: Boolean) {
         if (isChecked)  {
-            tvItemName.paintFlags = tvItemName.paintFlags or Paint.STRIKE_THRU_TEXT_FLAG
+            tvItemName.paintFlags = (tvItemName.paintFlags or Paint.STRIKE_THRU_TEXT_FLAG)
         } else {
-            tvItemName.paintFlags = tvItemName.paintFlags and Paint.STRIKE_THRU_TEXT_FLAG.inv()
+            tvItemName.paintFlags = (tvItemName.paintFlags and Paint.STRIKE_THRU_TEXT_FLAG.inv())
+
         }
     }
 }
