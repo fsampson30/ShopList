@@ -29,7 +29,7 @@ interface ShopDao {
     @Query("SELECT * FROM table_list ORDER BY id DESC")
     fun getAllLists(): Flow<MutableList<List>>
 
-    @Query("SELECT l.id, l.item_code, l.item_name, l.list_code, l.quantity, i.category FROM table_items_list l JOIN table_item i on l.item_code = i.id WHERE l.list_code = :param ORDER BY l.item_name")
+    @Query("SELECT l.id, l.item_code, l.item_name, l.list_code, l.quantity, i.category, cast('FALSE' as Boolean) as isDone FROM table_items_list l JOIN table_item i on l.item_code = i.id WHERE l.list_code = :param ORDER BY l.item_name")
     fun getListByCode(param: String): Flow<MutableList<ItemsListCategory>>
 
     @Query("UPDATE table_list SET total_value = :value WHERE list_code = :code")

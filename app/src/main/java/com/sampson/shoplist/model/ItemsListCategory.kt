@@ -6,5 +6,6 @@ data class ItemsListCategory(
     var item_name: String = "",
     var list_code: String = "",
     var quantity: Int = 0,
-    var category: Int = 0
+    var category: Int = 0,
+    var isDone: Boolean = false
 )

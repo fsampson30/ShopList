@@ -11,6 +11,7 @@
         android:layout_width="24dp"
         android:layout_height="24dp"
         android:layout_alignParentStart="true"
+        android:layout_centerVertical="true"
         android:src="@mipmap/ic_launcher" />
 
     <TextView
@@ -18,6 +19,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/teste"
+        android:layout_centerVertical="true"
         android:layout_toEndOf="@id/imgListItemsCardPicture"
         android:layout_marginLeft="48dp"
         android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
@@ -26,7 +28,15 @@
         android:id="@+id/txtQttListItemsActivity"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="48dp"
+        android:layout_toEndOf="@id/txtListItemsCardItemName"
         tools:text="0" />
+
+    <CheckBox
+        android:id="@+id/cbbItemDoneListItemsActivity"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"/>
 
 </RelativeLayout>

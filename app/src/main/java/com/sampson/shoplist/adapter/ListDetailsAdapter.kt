@@ -5,6 +5,7 @@ import android.graphics.Paint
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.CheckBox
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
@@ -22,6 +23,7 @@ class ListDetailsAdapter(
         val imgItem: ImageView = itemView.findViewById(R.id.imgListItemsCardPicture)
         val txtItemName: TextView = itemView.findViewById(R.id.txtListItemsCardItemName)
         val txtItemQuantity: TextView = itemView.findViewById(R.id.txtQttListItemsActivity)
+        val cbbItemDone : CheckBox = itemView.findViewById(R.id.cbbItemDoneListItemsActivity)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ListDetailsViewHolder {
@@ -34,9 +36,12 @@ class ListDetailsAdapter(
         holder.txtItemName.text = itemsList[position].item_name
         holder.txtItemQuantity.text = itemsList[position].quantity.toString()
 
-        holder.itemView.setOnClickListener {
-            paintItem(holder.txtItemName)
-            paintItem(holder.txtItemQuantity)
+        holder.cbbItemDone.setOnCheckedChangeListener(null)
+        holder.cbbItemDone.isChecked = itemsList[position].isDone
+
+        holder.cbbItemDone.setOnCheckedChangeListener { _, isChecked ->
+            paintItem(holder.txtItemName, isChecked)
+            itemsList[position].isDone = !itemsList[position].isDone
         }
     }
 
@@ -47,11 +52,11 @@ class ListDetailsAdapter(
         notifyDataSetChanged()
     }
 
-    private fun paintItem(tvItemName : TextView) {
-        if (tvItemName.paintFlags and Paint.STRIKE_THRU_TEXT_FLAG > 0)  {
-            tvItemName.paintFlags = tvItemName.paintFlags and Paint.STRIKE_THRU_TEXT_FLAG.inv()
-        } else {
+    private fun paintItem(tvItemName : TextView, isChecked: Boolean) {
+        if (isChecked)  {
             tvItemName.paintFlags = tvItemName.paintFlags or Paint.STRIKE_THRU_TEXT_FLAG
+        } else {
+            tvItemName.paintFlags = tvItemName.paintFlags and Paint.STRIKE_THRU_TEXT_FLAG.inv()
         }
     }
 }
