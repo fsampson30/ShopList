@@ -41,6 +41,7 @@ class ListDetailsAdapter(
 
         holder.cbbItemDone.setOnCheckedChangeListener { _, isChecked ->
             paintItem(holder.txtItemName, isChecked)
+            paintItem(holder.txtItemQuantity, isChecked)
             itemsList[position].isDone = !itemsList[position].isDone
         }
     }
