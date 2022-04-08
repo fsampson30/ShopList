@@ -43,7 +43,10 @@ class ListDetailsAdapter(
 
         holder.cbbItemDone.setOnCheckedChangeListener { _, isChecked ->
             currentItem.isDone = !currentItem.isDone
-            holder.txtItemName.setTextColor(Color.GREEN)
+            if(currentItem.isDone){
+                holder.txtItemName.setTextColor(Color.GREEN)
+            } else
+                holder.txtItemName.setTextColor(Color.BLACK)
         }
 
         if(currentItem.isDone){
