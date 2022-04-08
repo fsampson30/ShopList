@@ -1,6 +1,7 @@
 package com.sampson.shoplist.view
 
 import android.content.DialogInterface
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.InputType
@@ -46,7 +47,8 @@ class ListDetailsActivity : AppCompatActivity() {
         "Valor total da compra: ${value.toString()}".also { txtTotalValue.text = it }
 
         btnAddItem.setOnClickListener {
-            Toast.makeText(baseContext, "Adding Item",Toast.LENGTH_SHORT).show()
+            val intent = Intent(baseContext, AddItemToListActivity::class.java)
+            startActivity(intent)
         }
 
         btnSubmitValue.setOnClickListener {
