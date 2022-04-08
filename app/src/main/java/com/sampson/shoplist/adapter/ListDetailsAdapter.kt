@@ -2,7 +2,6 @@ package com.sampson.shoplist.adapter
 
 import android.content.Context
 import android.graphics.Color
-import android.graphics.Paint
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -44,8 +43,13 @@ class ListDetailsAdapter(
 
         holder.cbbItemDone.setOnCheckedChangeListener { _, isChecked ->
             currentItem.isDone = !currentItem.isDone
+            holder.txtItemName.setTextColor(Color.GREEN)
         }
 
+        if(currentItem.isDone){
+            holder.txtItemName.setTextColor(Color.GREEN)
+        } else
+            holder.txtItemName.setTextColor(Color.BLACK)
     }
 
     override fun getItemCount(): Int = itemsList.size
