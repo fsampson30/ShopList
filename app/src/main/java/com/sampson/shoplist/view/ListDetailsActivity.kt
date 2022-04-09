@@ -10,12 +10,15 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
 import androidx.appcompat.app.AlertDialog
 import androidx.recyclerview.widget.RecyclerView
 import com.sampson.shoplist.R
 import com.sampson.shoplist.adapter.ListDetailsAdapter
 import com.sampson.shoplist.dao.ShopApplication
+import com.sampson.shoplist.model.Item
+import com.sampson.shoplist.model.ItemsList
 import com.sampson.shoplist.viewmodel.ListViewModel
 import com.sampson.shoplist.viewmodel.ListViewModelFactory
 
@@ -46,9 +49,22 @@ class ListDetailsActivity : AppCompatActivity() {
 
         "Valor total da compra: ${value.toString()}".also { txtTotalValue.text = it }
 
+        val register = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
+            if (it.resultCode == RESULT_OK) {
+                val itemName = it.data?.getStringExtra("itemName") as String
+                val itemCode = it.data?.getIntExtra("itemCode",0) as Int
+                val itemQtt = it.data?.getIntExtra("itemQtt",0) as Int
+                val itemToInsert = ItemsList(0,itemCode,itemName,param,itemQtt)
+                listViewModel.insertOneItemOnList(itemToInsert)
+            }
+            listViewModel.selectItemsByCode(param).observe(this) { items ->
+                items.let { itemsAdapter.submitList(it) }
+            }
+        }
+
         btnAddItem.setOnClickListener {
             val intent = Intent(baseContext, AddItemToListActivity::class.java)
-            startActivity(intent)
+            register.launch(intent)
         }
 
         btnSubmitValue.setOnClickListener {

@@ -1,7 +1,10 @@
 package com.sampson.shoplist.view
 
+import android.app.Activity
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
 import android.widget.Button
@@ -15,6 +18,7 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.sampson.shoplist.R
 import com.sampson.shoplist.adapter.ItemAdapter
 import com.sampson.shoplist.dao.ShopApplication
+import com.sampson.shoplist.model.ItemsList
 import com.sampson.shoplist.viewmodel.ItemViewModel
 import com.sampson.shoplist.viewmodel.ItemViewModelFactory
 
@@ -34,6 +38,7 @@ class AddItemToListActivity : AppCompatActivity() {
         val rvItems: RecyclerView = findViewById(R.id.rvSHowItemsAddItemToListActivity)
         val btnConfirm: Button = findViewById(R.id.btnConfirmAddItemToListActivity)
         val pullToRefresh: SwipeRefreshLayout = findViewById(R.id.refreshrvSHowItemsAddItemToListActivity)
+        val currentItemList = ItemsList()
 
         val itemAdapter = ItemAdapter(baseContext)
         rvItems.adapter = itemAdapter
@@ -68,6 +73,8 @@ class AddItemToListActivity : AppCompatActivity() {
                 val position = viewHolder.adapterPosition
                 val item = itemAdapter.getItemAtPosition(position)
                 lblItemName.text = item.name
+                currentItemList.item_name = item.name
+                currentItemList.item_code = item.id
                 itemViewModel.allItems.observe(this@AddItemToListActivity) { items ->
                     items.let { itemAdapter.submitList(it) }
                 }
@@ -96,7 +103,14 @@ class AddItemToListActivity : AppCompatActivity() {
             if (edtQttItem.text.isEmpty() or lblItemName.text.isEmpty()) {
                 edtQttItem.error = "Obrigatório"
             } else {
-                Toast.makeText(baseContext, "Confirmando", Toast.LENGTH_SHORT).show()
+                val replyIntent = Intent()
+                replyIntent.apply {
+                    putExtra("itemName", currentItemList.item_name)
+                    putExtra("itemCode", currentItemList.item_code)
+                    putExtra("itemQtt",edtQttItem.text.toString().toInt())
+                }
+                setResult(Activity.RESULT_OK,replyIntent)
+                finish()
             }
         }
 
