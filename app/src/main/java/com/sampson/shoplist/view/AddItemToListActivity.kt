@@ -38,6 +38,11 @@ class AddItemToListActivity : AppCompatActivity() {
         val itemAdapter = ItemAdapter(baseContext)
         rvItems.adapter = itemAdapter
 
+        val actionBar = supportActionBar
+        actionBar?.setDisplayHomeAsUpEnabled(true)
+
+
+
         itemViewModel.allItems.observe(this) { items ->
             items.let { itemAdapter.submitList(it) }
         }
@@ -97,5 +102,10 @@ class AddItemToListActivity : AppCompatActivity() {
 
         val itemTouchHelper = ItemTouchHelper(helperAddItem)
         itemTouchHelper.attachToRecyclerView(rvItems)
+    }
+
+    override fun onSupportNavigateUp(): Boolean {
+        onBackPressed()
+        return super.onSupportNavigateUp()
     }
 }

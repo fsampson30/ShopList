@@ -15,8 +15,7 @@
         <activity
             android:name=".view.AddItemToListActivity"
             android:exported="false"
-            android:label="Adiciona um item a lista"
-            android:parentActivityName=".view.ShowListsActivity"/>
+            android:label="Adiciona um item a lista"/>
         <activity
             android:name=".view.ListDetailsActivity"
             android:exported="false"
