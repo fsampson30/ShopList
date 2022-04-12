@@ -43,6 +43,9 @@ dependencies {
     implementation "androidx.activity:activity-ktx:1.4.0"
     implementation "io.insert-koin:koin-android:3.1.5"
 
+    // Graphic component - Sparkline
+    implementation 'com.robinhood.spark:spark:1.2.0'
+
     // Room components
     implementation "androidx.room:room-ktx:2.4.1"
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
