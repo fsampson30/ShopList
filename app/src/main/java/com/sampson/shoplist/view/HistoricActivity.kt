@@ -24,6 +24,7 @@ class HistoricActivity : AppCompatActivity() {
         setContentView(R.layout.activity_historic)
 
         val txtShopDate : TextView = findViewById(R.id.txtShopDateHistoricActivity)
+        val txtShopValue: TextView = findViewById(R.id.txtShopValueHistoricActivity)
         val graphic : SparkView = findViewById(R.id.historicGraphic)
         val adapter = GraphicAdapter()
 
@@ -34,6 +35,7 @@ class HistoricActivity : AppCompatActivity() {
         graphic.setScrubListener { itemData ->
             if (itemData is List) {
                 txtShopDate.text = itemData.shop_date
+                txtShopValue.text = itemData.total_value.toString()
             }
         }
 
