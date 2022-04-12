@@ -45,7 +45,8 @@ class MainActivity : AppCompatActivity() {
         }
 
         imgHistoric.setOnClickListener {
-            Toast.makeText(this, "Testing historic", Toast.LENGTH_SHORT).show()
+            val intent = Intent(baseContext, HistoricActivity::class.java)
+            startActivity(intent)
         }
 
         imgMarkets.setOnClickListener {
