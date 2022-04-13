@@ -3,7 +3,6 @@ package com.sampson.shoplist.view
 import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
@@ -25,6 +24,7 @@ class HistoricActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener
     }
 
     private val adapter = GraphicAdapter()
+    lateinit var graphic : SparkView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -33,7 +33,7 @@ class HistoricActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener
         val txtShopDate: TextView = findViewById(R.id.txtShopDateHistoricActivity)
         val txtShopValue: TextView = findViewById(R.id.txtShopValueHistoricActivity)
         val spinSource: Spinner = findViewById(R.id.spinSelectSourceHistoricActivity)
-        val graphic: SparkView = findViewById(R.id.historicGraphic)
+        graphic = findViewById(R.id.historicGraphic)
 
 
         val spinList = arrayListOf<String>()
@@ -50,7 +50,7 @@ class HistoricActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener
         spinSource.adapter = arrayAdapter
 
         graphic.adapter = adapter
-        graphic.lineColor = Color.RED
+
 
         graphic.isScrubEnabled = true
         graphic.setScrubListener { itemData ->
@@ -60,22 +60,28 @@ class HistoricActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener
             }
         }
 
-        listViewModel.allLists.observe(this) { items ->
-            items.let { adapter.submitList(it) }
-        }
-
     }
 
     override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
         when (p2) {
-            0 -> listViewModel.allLists.observe(this) { items ->
-                items.let { adapter.submitList(it) }
+            0 -> {
+                graphic.lineColor = Color.RED
+                listViewModel.allLists.observe(this) { items ->
+                    items.let { adapter.submitList(it) }
+                }
             }
-            1 -> listViewModel.selectItemsMostBought.observe(this) { items ->
-                items.let { adapter.submitList(it) }
+
+            1 -> {
+                graphic.lineColor = Color.BLUE
+                listViewModel.selectItemsMostBought.observe(this) { items ->
+                    items.let { adapter.submitList(it) }
+                }
             }
-            2 -> listViewModel.selectItemsHistoric.observe(this) { items ->
-                items.let { adapter.submitList(it) }
+            2 -> {
+                graphic.lineColor = Color.GREEN
+                listViewModel.selectItemsHistoric.observe(this) { items ->
+                    items.let { adapter.submitList(it) }
+                }
             }
         }
     }
