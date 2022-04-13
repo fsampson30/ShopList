@@ -71,7 +71,9 @@ class HistoricActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener
             0 -> listViewModel.allLists.observe(this) { items ->
                 items.let { adapter.submitList(it) }
             }
-            1 -> Log.d("FLAVIO", "1")
+            1 -> listViewModel.selectItemsMostBought.observe(this) { items ->
+                items.let { adapter.submitList(it) }
+            }
             2 -> listViewModel.selectItemsHistoric.observe(this) { items ->
                 items.let { adapter.submitList(it) }
             }

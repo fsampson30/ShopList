@@ -9,9 +9,9 @@ class ShopRepository(private val shopDao: ShopDao) {
 
     val allItems: Flow<MutableList<Item>> = shopDao.getAllItems()
     val allCategories: Flow<MutableList<Category>> = shopDao.getAllCategories()
-    val lastShopInformation: Flow<List> = shopDao.getLastShopInformation()
     val allLists: Flow<MutableList<List>> = shopDao.getAllLists()
     val selectItemsHistoric: Flow<MutableList<List>> = shopDao.selectItemsHistoric()
+    val selectItemsMostBought: Flow<MutableList<List>> = shopDao.selectItemsMostBought()
 
     @WorkerThread
     suspend fun insertItem(item: Item){

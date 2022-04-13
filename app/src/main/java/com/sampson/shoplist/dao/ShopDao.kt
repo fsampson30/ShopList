@@ -35,6 +35,9 @@ interface ShopDao {
     @Query("SELECT 1 as id, tl.shop_date , 'AA' as list_code, tl.list_name, ( SELECT count(item_code) FROM table_items_list til     WHERE tl.list_code = til.list_code ) total_value FROM table_list tl")
     fun selectItemsHistoric() : Flow<MutableList<List>>
 
+    @Query("SELECT 1 as id , '1' as shop_date  , 'aa' as list_code, li.item_name as list_name, SUM(li.quantity) as total_value FROM table_items_list li GROUP BY   li.item_name ORDER BY 4 ")
+    fun selectItemsMostBought(): Flow<MutableList<List>>
+
     @Query("UPDATE table_list SET total_value = :value WHERE list_code = :code")
     suspend fun updateTotalValue(value : Double, code : String)
 

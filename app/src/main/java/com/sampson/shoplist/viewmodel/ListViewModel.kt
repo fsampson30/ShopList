@@ -10,7 +10,7 @@ import java.lang.IllegalArgumentException
 class ListViewModel(private val repository: ShopRepository) : ViewModel() {
 
     val selectItemsHistoric : LiveData<MutableList<List>> = repository.selectItemsHistoric.asLiveData()
-
+    val selectItemsMostBought: LiveData<MutableList<List>> = repository.selectItemsMostBought.asLiveData()
     val allLists: LiveData<MutableList<List>> = repository.allLists.asLiveData()
 
     fun selectItemsByCode(param: String) = repository.selectItemsByCode(param).asLiveData()
