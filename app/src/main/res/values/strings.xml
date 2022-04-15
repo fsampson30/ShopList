@@ -24,4 +24,7 @@
     <string name="valor_total_da_compra">Valor Total da Compra:</string>
     <string name="btn_add">+</string>
     <string name="confirma">Confirma</string>
+    <string name="valores_totais">Valores totais</string>
+    <string name="items_most_bought">Items mais comprados</string>
+    <string name="qtt_bought">Quantidades compradas</string>
 </resources>

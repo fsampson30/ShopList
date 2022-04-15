@@ -38,9 +38,9 @@ class HistoricActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener
 
         val spinList = arrayListOf<String>()
         spinList.apply {
-            add("Valores totais")
-            add("Items mais comprados")
-            add("Quantidades compradas")
+            add(getString(R.string.valores_totais))
+            add(getString(R.string.items_most_bought))
+            add(getString(R.string.qtt_bought) )
         }
         spinSource.onItemSelectedListener = this
 
