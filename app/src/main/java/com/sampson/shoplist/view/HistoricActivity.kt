@@ -26,13 +26,15 @@ class HistoricActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener
 
     private val adapter = GraphicAdapter()
     lateinit var graphic: SparkView
+    lateinit var txtShopDate: TextView
+    lateinit var txtShopValue: TextView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_historic)
 
-        val txtShopDate: TextView = findViewById(R.id.txtShopDateHistoricActivity)
-        val txtShopValue: TextView = findViewById(R.id.txtShopValueHistoricActivity)
+        txtShopDate = findViewById(R.id.txtShopDateHistoricActivity)
+        txtShopValue = findViewById(R.id.txtShopValueHistoricActivity)
         val spinSource: Spinner = findViewById(R.id.spinSelectSourceHistoricActivity)
         graphic = findViewById(R.id.historicGraphic)
 
@@ -76,6 +78,7 @@ class HistoricActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener
     override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
         when (p2) {
             0 -> {
+                clearTexts()
                 graphic.isScrubEnabled = false
                 graphic.lineColor = Color.RED
                 listViewModel.allListsAsc.observe(this) { items ->
@@ -88,6 +91,7 @@ class HistoricActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener
             }
 
             1 -> {
+                clearTexts()
                 graphic.isScrubEnabled = false
                 graphic.lineColor = Color.BLUE
                 listViewModel.selectItemsMostBought.observe(this) { items ->
@@ -99,6 +103,7 @@ class HistoricActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener
                 }
             }
             2 -> {
+                clearTexts()
                 graphic.isScrubEnabled = false
                 graphic.lineColor = Color.GREEN
                 listViewModel.selectItemsHistoric.observe(this) { items ->
@@ -114,5 +119,10 @@ class HistoricActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener
 
     override fun onNothingSelected(p0: AdapterView<*>?) {
         TODO("Not yet implemented")
+    }
+
+    fun clearTexts(){
+        txtShopDate.text = ""
+        txtShopValue.text = ""
     }
 }
