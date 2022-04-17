@@ -3,6 +3,7 @@ package com.sampson.shoplist.view
 import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
@@ -51,8 +52,6 @@ class HistoricActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener
 
         graphic.adapter = adapter
 
-
-        graphic.isScrubEnabled = true
         graphic.setScrubListener { itemData ->
             if (itemData is List) {
                 when (spinSource.selectedItemPosition) {
@@ -77,22 +76,37 @@ class HistoricActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener
     override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
         when (p2) {
             0 -> {
+                graphic.isScrubEnabled = false
                 graphic.lineColor = Color.RED
                 listViewModel.allListsAsc.observe(this) { items ->
                     items.let { adapter.submitList(it) }
+                    if(items.size > 1) {
+                        graphic.isScrubEnabled = true
+                    }
+                    Log.d("FLAVIO2", items.size.toString())
                 }
             }
 
             1 -> {
+                graphic.isScrubEnabled = false
                 graphic.lineColor = Color.BLUE
                 listViewModel.selectItemsMostBought.observe(this) { items ->
                     items.let { adapter.submitList(it) }
+                    if(items.size > 1) {
+                        graphic.isScrubEnabled = true
+                    }
+                    Log.d("FLAVIO3", items.size.toString())
                 }
             }
             2 -> {
+                graphic.isScrubEnabled = false
                 graphic.lineColor = Color.GREEN
                 listViewModel.selectItemsHistoric.observe(this) { items ->
                     items.let { adapter.submitList(it) }
+                    if(items.size > 1) {
+                        graphic.isScrubEnabled = true
+                    }
+                    Log.d("FLAVIO4", items.size.toString())
                 }
             }
         }
