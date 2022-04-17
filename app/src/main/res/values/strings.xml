@@ -27,4 +27,5 @@
     <string name="valores_totais">Valores totais</string>
     <string name="items_most_bought">Items mais comprados</string>
     <string name="qtt_bought">Quantidades compradas</string>
+    <string name="lbl_descarta_lista">Lista será perdida. Confirma?</string>
 </resources>

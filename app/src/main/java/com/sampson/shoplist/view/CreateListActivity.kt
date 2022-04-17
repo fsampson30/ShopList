@@ -4,13 +4,16 @@ import android.content.DialogInterface
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.InputType
+import android.util.Log
 import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
 import android.widget.Button
 import android.widget.EditText
+import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AlertDialog
+import androidx.core.view.marginStart
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
@@ -35,6 +38,8 @@ class CreateListActivity : AppCompatActivity() {
         ListViewModelFactory((application as ShopApplication).repository)
     }
 
+    lateinit var createList: CreateListAdapter
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_create_list)
@@ -51,10 +56,13 @@ class CreateListActivity : AppCompatActivity() {
         val pullToRefresh: SwipeRefreshLayout =
             findViewById(R.id.refreshRvShowItemsCreateListActivity)
 
+        val actionBar = supportActionBar
+        actionBar?.setDisplayHomeAsUpEnabled(true)
+
         val itemAdapter = ItemAdapter(baseContext)
         rvShowItems.adapter = itemAdapter
 
-        val createList = CreateListAdapter(baseContext)
+        createList = CreateListAdapter(baseContext)
         rvAddItems.adapter = createList
 
         val listHash = RandomUtils.returnRandomInt()
@@ -72,11 +80,16 @@ class CreateListActivity : AppCompatActivity() {
                 edtShopDate.error = "Obrigatório"
                 edtListName.error = "Obrigatório"
             } else {
-                val list = List(0, edtShopDate.text.toString(), listHash, edtListName.text.toString(), 0.0)
+                val list =
+                    List(0, edtShopDate.text.toString(), listHash, edtListName.text.toString(), 0.0)
                 val items = createList.retrieveItemsList()
                 listViewModel.insertList(list)
                 listViewModel.insertItemsList(items)
-                Toast.makeText(this@CreateListActivity,"Lista ${edtListName.text.toString()} adicionada corretamente", Toast.LENGTH_SHORT).show()
+                Toast.makeText(
+                    this@CreateListActivity,
+                    "Lista ${edtListName.text.toString()} adicionada corretamente",
+                    Toast.LENGTH_SHORT
+                ).show()
                 finish()
             }
         }
@@ -165,5 +178,24 @@ class CreateListActivity : AppCompatActivity() {
 
         val itemAddQuantity = ItemTouchHelper(helperAddQtt)
         itemAddQuantity.attachToRecyclerView(rvAddItems)
+    }
+
+    override fun onBackPressed() {
+        if (createList.retrieveItemsList().size > 0) {
+            AlertDialog.Builder(this).apply {
+                setMessage(getString(R.string.lbl_descarta_lista))
+                setNegativeButton("Não", null)
+                setPositiveButton("Sim", DialogInterface.OnClickListener { _, _ ->
+                    finish()
+                })
+            }.show()
+        } else {
+            finish()
+        }
+    }
+
+    override fun onSupportNavigateUp(): Boolean {
+        onBackPressed()
+        return super.onSupportNavigateUp()
     }
 }
