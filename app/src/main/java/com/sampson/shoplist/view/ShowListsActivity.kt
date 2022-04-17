@@ -6,10 +6,8 @@ import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.recyclerview.widget.RecyclerView
 import com.sampson.shoplist.R
-import com.sampson.shoplist.adapter.CategoryAdapter
 import com.sampson.shoplist.adapter.ShowListAdapter
 import com.sampson.shoplist.dao.ShopApplication
-import com.sampson.shoplist.model.Category
 import com.sampson.shoplist.model.List
 import com.sampson.shoplist.viewmodel.ListViewModel
 import com.sampson.shoplist.viewmodel.ListViewModelFactory
@@ -38,7 +36,7 @@ class ShowListsActivity : AppCompatActivity() {
         val rvShowLists : RecyclerView = findViewById(R.id.rvListsShowListsActivity)
         rvShowLists.adapter = showListAdapter
 
-        listViewModel.allLists.observe(this){ lists ->
+        listViewModel.allListsDesc.observe(this){ lists ->
             lists.let { showListAdapter.submitList(it) }
         }
     }

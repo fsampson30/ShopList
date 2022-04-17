@@ -11,7 +11,8 @@ class ListViewModel(private val repository: ShopRepository) : ViewModel() {
 
     val selectItemsHistoric : LiveData<MutableList<List>> = repository.selectItemsHistoric.asLiveData()
     val selectItemsMostBought: LiveData<MutableList<List>> = repository.selectItemsMostBought.asLiveData()
-    val allLists: LiveData<MutableList<List>> = repository.allLists.asLiveData()
+    val allListsDesc: LiveData<MutableList<List>> = repository.allListsDesc.asLiveData()
+    val allListsAsc: LiveData<MutableList<List>> = repository.allListsAsc.asLiveData()
 
     fun selectItemsByCode(param: String) = repository.selectItemsByCode(param).asLiveData()
 

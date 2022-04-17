@@ -27,12 +27,15 @@ interface ShopDao {
     fun getLastShopInformation(): Flow<List>
 
     @Query("SELECT * FROM table_list ORDER BY id DESC")
-    fun getAllLists(): Flow<MutableList<List>>
+    fun getAllListsDesc(): Flow<MutableList<List>>
+
+    @Query("SELECT * FROM table_list ORDER BY id")
+    fun getAllListsAsc(): Flow<MutableList<List>>
 
     @Query("SELECT l.id, l.item_code, l.item_name, l.list_code, l.quantity, i.category, cast('FALSE' as Boolean) as isDone FROM table_items_list l JOIN table_item i on l.item_code = i.id WHERE l.list_code = :param ORDER BY l.item_name")
     fun getListByCode(param: String): Flow<MutableList<ItemsListCategory>>
 
-    @Query("SELECT 1 as id, tl.shop_date , 'AA' as list_code, tl.list_name, ( SELECT count(item_code) FROM table_items_list til WHERE tl.list_code = til.list_code ) total_value FROM table_list tl ORDER BY 2")
+    @Query("SELECT tl.id, tl.shop_date , 'AA' as list_code, tl.list_name, ( SELECT count(item_code) FROM table_items_list til WHERE tl.list_code = til.list_code ) total_value FROM table_list tl ORDER BY 1")
     fun selectItemsHistoric() : Flow<MutableList<List>>
 
     @Query("SELECT 1 as id , '1' as shop_date  , 'aa' as list_code, li.item_name as list_name, SUM(li.quantity) as total_value FROM table_items_list li GROUP BY   li.item_name ORDER BY 5 ")

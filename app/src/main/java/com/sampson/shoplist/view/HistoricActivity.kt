@@ -24,7 +24,7 @@ class HistoricActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener
     }
 
     private val adapter = GraphicAdapter()
-    lateinit var graphic : SparkView
+    lateinit var graphic: SparkView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -40,7 +40,7 @@ class HistoricActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener
         spinList.apply {
             add(getString(R.string.valores_totais))
             add(getString(R.string.items_most_bought))
-            add(getString(R.string.qtt_bought) )
+            add(getString(R.string.qtt_bought))
         }
         spinSource.onItemSelectedListener = this
 
@@ -55,8 +55,20 @@ class HistoricActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener
         graphic.isScrubEnabled = true
         graphic.setScrubListener { itemData ->
             if (itemData is List) {
-                txtShopDate.text = itemData.shop_date
-                txtShopValue.text = itemData.total_value.toString()
+                when (spinSource.selectedItemPosition) {
+                    0 -> {
+                        "Data da Compra:   ${itemData.shop_date}".also { txtShopDate.text = it }
+                        "Valor da Compra:   R$ ${itemData.total_value}".also { txtShopValue.text = it }
+                    }
+                    1 -> {
+                        "Item:   ${itemData.list_name}".also { txtShopDate.text = it }
+                        "Quantidade:   ${itemData.total_value.toInt()}".also { txtShopValue.text = it }
+                    }
+                    2 -> {
+                        "Data da Compra:   ${itemData.shop_date}".also { txtShopDate.text = it }
+                        "Total de Itens:   ${itemData.total_value.toInt()}".also { txtShopValue.text = it }
+                    }
+                }
             }
         }
 
@@ -66,7 +78,7 @@ class HistoricActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener
         when (p2) {
             0 -> {
                 graphic.lineColor = Color.RED
-                listViewModel.allLists.observe(this) { items ->
+                listViewModel.allListsAsc.observe(this) { items ->
                     items.let { adapter.submitList(it) }
                 }
             }

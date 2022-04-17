@@ -9,7 +9,8 @@ class ShopRepository(private val shopDao: ShopDao) {
 
     val allItems: Flow<MutableList<Item>> = shopDao.getAllItems()
     val allCategories: Flow<MutableList<Category>> = shopDao.getAllCategories()
-    val allLists: Flow<MutableList<List>> = shopDao.getAllLists()
+    val allListsDesc: Flow<MutableList<List>> = shopDao.getAllListsDesc()
+    val allListsAsc: Flow<MutableList<List>> = shopDao.getAllListsAsc()
     val selectItemsHistoric: Flow<MutableList<List>> = shopDao.selectItemsHistoric()
     val selectItemsMostBought: Flow<MutableList<List>> = shopDao.selectItemsMostBought()
 
