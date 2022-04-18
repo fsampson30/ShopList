@@ -63,4 +63,8 @@ class ShopRepository(private val shopDao: ShopDao) {
     suspend fun deleteCategory(category: Category){
         shopDao.deleteCategory(category)
     }
+
+    fun isCategoryEmpty(param: Int) : Flow<Int> {
+        return shopDao.isCategoryEmpty(param)
+    }
 }

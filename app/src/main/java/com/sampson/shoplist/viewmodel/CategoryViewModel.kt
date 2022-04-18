@@ -18,6 +18,8 @@ class CategoryViewModel(private val repository: ShopRepository) : ViewModel() {
         repository.deleteCategory(category)
     }
 
+    fun isCategoryEmpty(param: Int) = repository.isCategoryEmpty(param).asLiveData()
+
 }
 
 class CategoryViewModelFactory(private val repository: ShopRepository): ViewModelProvider.Factory {

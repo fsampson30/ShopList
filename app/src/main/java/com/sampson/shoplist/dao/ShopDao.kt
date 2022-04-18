@@ -20,6 +20,9 @@ interface ShopDao {
     @Query("SELECT * FROM table_item WHERE category = :id ORDER BY id")
     fun getItemsByCategory(id: Int): Flow<MutableList<Item>>
 
+    @Query("SELECT COUNT(*) FROM table_item WHERE category = :param")
+    fun isCategoryEmpty(param: Int): Flow<Int>
+
     @Query("SELECT * FROM table_category ORDER BY id")
     fun getAllCategories(): Flow<MutableList<Category>>
 
