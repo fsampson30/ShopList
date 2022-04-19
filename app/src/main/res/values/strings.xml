@@ -28,4 +28,7 @@
     <string name="items_most_bought">Items mais comprados</string>
     <string name="qtt_bought">Quantidades compradas</string>
     <string name="lbl_descarta_lista">Lista será perdida. Confirma?</string>
+    <string name="msg_not_possible_category_exclusion">Categoria contém Itens. Não é possível excluir.</string>
+    <string name="msg_category_excluded">Categoria excluída</string>
+    <string name="msg_add_category">Adicionar categoria...</string>
 </resources>

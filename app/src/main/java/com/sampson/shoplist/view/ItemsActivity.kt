@@ -4,6 +4,8 @@ import android.content.DialogInterface
 import android.content.Intent
 import android.os.Bundle
 import android.text.InputType
+import android.util.Log
+import android.view.View
 import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
 import android.widget.*
@@ -11,9 +13,11 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.asFlow
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+import com.google.android.material.snackbar.Snackbar
 import com.sampson.shoplist.R
 import com.sampson.shoplist.adapter.CategoryAdapter
 import com.sampson.shoplist.adapter.ItemAdapter
@@ -128,23 +132,36 @@ class ItemsActivity : AppCompatActivity() {
                 override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
                     val position = viewHolder.adapterPosition
                     val category = categoryAdapter.getItemAtPosition(position)
+                    var count = 0
+                    categoryViewModel.isCategoryEmpty(category.id).observe(this@ItemsActivity){
+                        count = it
+                    }
                     AlertDialog.Builder(this@ItemsActivity).apply {
                         setTitle("Confirma a exclusão da categoria ${category.category_name}?")
                         setNegativeButton("Não", DialogInterface.OnClickListener { _, _ ->
-                            categoryViewModel.allCategories.observe(this@ItemsActivity) { items ->
-                                items.let { categoryAdapter.submitList(it) }
+                            categoryViewModel.allCategories.observe(this@ItemsActivity) { categories ->
+                                categories.let { categoryAdapter.submitList(it) }
                             }
                         })
                         setPositiveButton("Sim", DialogInterface.OnClickListener { _, _ ->
-                            categoryViewModel.deleteCategory(category)
-                            categoryViewModel.allCategories.observe(this@ItemsActivity) { items ->
-                                items.let { categoryAdapter.submitList(it) }
+                            if (count == 0) {
+                                categoryViewModel.deleteCategory(category)
+                                categoryViewModel.allCategories.observe(this@ItemsActivity) { categories ->
+                                    categories.let { categoryAdapter.submitList(it) }
+                                }
+                                categoryViewModel.isCategoryEmpty(category.id).removeObservers(this@ItemsActivity)
+                                Toast.makeText(context, getString(R.string.msg_category_excluded), Toast.LENGTH_SHORT).show()
+                            } else {
+                                val view = findViewById<View>(R.id.mainLayoutItemsActivity)
+                                Snackbar.make(view,getString(R.string.msg_not_possible_category_exclusion),Snackbar.LENGTH_LONG).show()
+                                categoryViewModel.allCategories.observe(this@ItemsActivity) { categories ->
+                                    categories.let { categoryAdapter.submitList(it) }
+                                }
+                                categoryViewModel.isCategoryEmpty(category.id).removeObservers(this@ItemsActivity)
                             }
-                            Toast.makeText(context, "Categoria excluída", Toast.LENGTH_SHORT).show()
-                        }).show()
-                    }
+                        })
+                    }.show()
                 }
-
             }
 
         val itemTouchHelper = ItemTouchHelper(helperItem)
@@ -153,18 +170,20 @@ class ItemsActivity : AppCompatActivity() {
         val categoryTouchHelper = ItemTouchHelper(helperCategory)
         categoryTouchHelper.attachToRecyclerView(rvCategory)
 
-        val register = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
-            if (it.resultCode == RESULT_OK) {
-                val itemName = it.data?.getStringExtra("itemName") as String
-                val itemCategory = it.data?.getStringExtra("itemCategory") as String
-                var categoryId = getCategoryIdByName(itemCategory)
-                val item = Item(0, itemName, categoryId)
-                itemViewModel.insertItem(item)
+        val register =
+            registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
+                if (it.resultCode == RESULT_OK) {
+                    val itemName = it.data?.getStringExtra("itemName") as String
+                    val itemCategory =
+                        it.data?.getStringExtra("itemCategory") as String
+                    var categoryId = getCategoryIdByName(itemCategory)
+                    val item = Item(0, itemName, categoryId)
+                    itemViewModel.insertItem(item)
+                }
+                itemViewModel.allItems.observe(this) { items ->
+                    items.let { itemAdapter.submitList(it) }
+                }
             }
-            itemViewModel.allItems.observe(this@ItemsActivity) { items ->
-                items.let { itemAdapter.submitList(it) }
-            }
-        }
 
         btnAddItem.setOnClickListener {
             val list = categoriesList.groupBy { it.category_name }.keys
@@ -176,7 +195,7 @@ class ItemsActivity : AppCompatActivity() {
 
         btnAddCategory.setOnClickListener {
             val input = EditText(this).apply {
-                hint = "Adicionar categoria..."
+                hint = context.getString(R.string.msg_add_category)
                 inputType = InputType.TYPE_CLASS_TEXT
             }
             AlertDialog.Builder(this).apply {
@@ -218,7 +237,12 @@ class ItemsActivity : AppCompatActivity() {
                     }
                 true
             } else {
-                Toast.makeText(baseContext, "Item não encontrado", Toast.LENGTH_SHORT).show()
+                Toast.makeText(
+                    baseContext,
+                    "Item não encontrado",
+                    Toast.LENGTH_SHORT
+                )
+                    .show()
                 false
             }
         }
