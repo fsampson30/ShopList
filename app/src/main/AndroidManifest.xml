@@ -15,21 +15,21 @@
         <activity
             android:name=".view.HistoricActivity"
             android:exported="false"
-            android:label="Histórico de Compras"
+            android:label="@string/shop_history"
             android:parentActivityName=".view.MainActivity" />
         <activity
             android:name=".view.AddItemToListActivity"
             android:exported="false"
-            android:label="Adiciona um item a lista" />
+            android:label="@string/add_item_to_list" />
         <activity
             android:name=".view.ListDetailsActivity"
             android:exported="false"
-            android:label="Itens da Lista"
+            android:label="@string/list_itens"
             android:parentActivityName=".view.ShowListsActivity" />
         <activity
             android:name=".view.ShowListsActivity"
             android:exported="false"
-            android:label="Listas Criadas"
+            android:label="@string/created_lists"
             android:parentActivityName=".view.MainActivity" />
         <activity
             android:name=".view.CreateListActivity"
@@ -48,7 +48,7 @@
         <activity
             android:name=".view.ItemsActivity"
             android:exported="false"
-            android:label="Itens"
+            android:label="@string/items"
             android:parentActivityName=".view.MainActivity" />
         <activity
             android:name=".view.MainActivity"

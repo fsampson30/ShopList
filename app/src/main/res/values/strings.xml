@@ -31,4 +31,9 @@
     <string name="msg_not_possible_category_exclusion">Categoria contém Itens. Não é possível excluir.</string>
     <string name="msg_category_excluded">Categoria excluída</string>
     <string name="msg_add_category">Adicionar categoria...</string>
+    <string name="shop_history">Histórico de Compras</string>
+    <string name="add_item_to_list">Adiciona um item a lista</string>
+    <string name="list_itens">Itens da Lista</string>
+    <string name="created_lists">Listas Criadas</string>
+    <string name="items">Itens</string>
 </resources>
