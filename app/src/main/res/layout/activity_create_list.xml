@@ -58,8 +58,7 @@
         app:layout_constraintBottom_toTopOf="@id/edtShopDateCreateListActivity"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/refreshRvShowItemsCreateListActivity"
-        app:layout_constraintTop_toBottomOf="@+id/edtSearchItemCreateListActivity"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintTop_toBottomOf="@+id/edtSearchItemCreateListActivity" />
 
     <EditText
         android:id="@+id/edtShopDateCreateListActivity"

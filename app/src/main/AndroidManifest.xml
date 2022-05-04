@@ -34,7 +34,8 @@
         <activity
             android:name=".view.CreateListActivity"
             android:exported="false"
-            android:label="@string/criar_lista" />
+            android:label="@string/criar_lista"
+            android:configChanges="uiMode"/>
         <activity
             android:name=".view.MarketsActivity"
             android:exported="false"

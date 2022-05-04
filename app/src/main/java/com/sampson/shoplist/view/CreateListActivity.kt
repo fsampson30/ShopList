@@ -45,7 +45,6 @@ class CreateListActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_create_list)
 
-
         val btnClearList: Button = findViewById(R.id.btnClearListCreateListActivity)
         val btnConfirmList: Button = findViewById(R.id.btnConfirmListCreateListActitivy)
         val edtSearchItem: EditText = findViewById(R.id.edtSearchItemCreateListActivity)
