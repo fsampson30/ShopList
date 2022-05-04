@@ -11,7 +11,7 @@
         android:label="@string/app_name"
         android:roundIcon="@drawable/addcart"
         android:supportsRtl="true"
-        android:theme="@style/ColorOne">
+        android:theme="@style/Theme.ShopList">
         <activity
             android:name=".view.HistoricActivity"
             android:exported="false"
