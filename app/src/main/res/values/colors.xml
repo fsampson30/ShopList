@@ -20,5 +20,7 @@
     <color name="yellow_500">#FFEB3B</color>
     <color name="yellow_700">#FBC02D</color>
 
+    <color name = "secondaryColor">#FF000000</color>
+
     <color name="colorBackgroundShade">#EBEEF6</color>
 </resources>

@@ -22,7 +22,8 @@
         android:layout_centerVertical="true"
         android:layout_toEndOf="@id/imgListItemsCardPicture"
         android:layout_marginStart="48dp"
-        android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
+        android:textAppearance="@style/Theme.ShopList"
+        android:textSize="15sp"/>
 
     <TextView
         android:id="@+id/txtQttListItemsActivity"
@@ -33,12 +34,15 @@
         android:layout_marginEnd="32dp"
         android:layout_toStartOf="@id/cbbItemDoneListItemsActivity"
         android:layout_toEndOf="@id/txtListItemsCardItemName"
+        android:textAppearance="@style/Theme.ShopList"
+        android:textSize="15sp"
         tools:text="0" />
 
     <CheckBox
         android:id="@+id/cbbItemDoneListItemsActivity"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"/>
+        android:layout_alignParentEnd="true"
+        android:theme="@style/Theme.ShopList"/>
 
 </RelativeLayout>
