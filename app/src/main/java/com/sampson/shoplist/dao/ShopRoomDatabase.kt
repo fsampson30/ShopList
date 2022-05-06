@@ -1,6 +1,7 @@
 package com.sampson.shoplist.dao
 
 import android.content.Context
+import androidx.room.AutoMigration
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
@@ -14,9 +15,11 @@ import kotlinx.coroutines.launch
 
 @Database(
     entities = arrayOf(Item::class, Category::class,ItemsList::class, List::class),
-    version = 1,
-    exportSchema = false
+    version = 2,
+    autoMigrations = [AutoMigration(from = 1, to = 2)],
+    exportSchema = true
 )
+
 abstract class ShopRoomDatabase : RoomDatabase() {
 
     abstract fun shopDao(): ShopDao
