@@ -40,6 +40,11 @@ class ShopRepository(private val shopDao: ShopDao) {
     }
 
     @WorkerThread
+    suspend fun updateItemListIsDone(hash: String, id: Int){
+        shopDao.updateItemListIsDone(hash, id)
+    }
+
+    @WorkerThread
     suspend fun insertOneItemOnList(itemsList: ItemsList){
         shopDao.insertOneItemOnList(itemsList)
     }

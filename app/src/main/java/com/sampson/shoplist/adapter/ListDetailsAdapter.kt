@@ -15,7 +15,8 @@ import com.sampson.shoplist.controller.ImageResources
 import com.sampson.shoplist.model.ItemsListCategory
 
 class ListDetailsAdapter(
-    val context: Context
+    val context: Context,
+    private val clickListener: ListDetailsAdapter.ItemClickListener
 ) : RecyclerView.Adapter<ListDetailsAdapter.ListDetailsViewHolder>() {
 
     var itemsList = mutableListOf<ItemsListCategory>()
@@ -42,12 +43,19 @@ class ListDetailsAdapter(
         holder.cbbItemDone.setOnCheckedChangeListener(null)
         holder.cbbItemDone.isChecked = currentItem.isDone
 
+        holder.itemView.setOnClickListener {
+            clickListener.itemOnClick(itemsList[position])
+        }
+
         holder.cbbItemDone.setOnCheckedChangeListener { _, isChecked ->
             currentItem.isDone = !currentItem.isDone
             if(currentItem.isDone){
                 holder.txtItemName.setTextColor(Color.GREEN)
-            } else
+                clickListener.itemOnClick(currentItem)
+            } else {
                 holder.txtItemName.setTextColor(context.resources.getColor(R.color.secondaryColor, context.theme))
+                clickListener.itemOnClick(currentItem)
+            }
         }
 
         if(currentItem.isDone){
@@ -61,5 +69,10 @@ class ListDetailsAdapter(
     fun submitList(list: MutableList<ItemsListCategory>) {
         this.itemsList = list
         notifyDataSetChanged()
+    }
+
+    interface ItemClickListener {
+        fun itemOnClick(item : ItemsListCategory)
+
     }
 }

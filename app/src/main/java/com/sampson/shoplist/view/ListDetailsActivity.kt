@@ -5,6 +5,7 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.InputType
+import android.util.Log
 import android.view.inputmethod.InputMethodManager
 import android.widget.Button
 import android.widget.EditText
@@ -19,6 +20,7 @@ import com.sampson.shoplist.adapter.ListDetailsAdapter
 import com.sampson.shoplist.dao.ShopApplication
 import com.sampson.shoplist.model.Item
 import com.sampson.shoplist.model.ItemsList
+import com.sampson.shoplist.model.ItemsListCategory
 import com.sampson.shoplist.viewmodel.ListViewModel
 import com.sampson.shoplist.viewmodel.ListViewModelFactory
 
@@ -40,7 +42,13 @@ class ListDetailsActivity : AppCompatActivity() {
         val txtTotalValue: TextView = findViewById(R.id.lblShowTotalValueListDetailsActivity)
         val btnAddItem: Button = findViewById(R.id.btnAddItemListDetailsActivity)
 
-        val itemsAdapter = ListDetailsAdapter(baseContext)
+        val itemsAdapter = ListDetailsAdapter(baseContext, object : ListDetailsAdapter.ItemClickListener {
+            override fun itemOnClick(item: ItemsListCategory) {
+                listViewModel.updateListItemIsDone(item.list_code,item.item_code)
+                Log.d("FLAVIO", item.list_code +  item.item_code.toString())
+            }
+        })
+
         rvListItems.adapter = itemsAdapter
 
         listViewModel.selectItemsByCode(param).observe(this) { items ->

@@ -20,6 +20,10 @@ class ListViewModel(private val repository: ShopRepository) : ViewModel() {
         repository.updateTotalValue(value, code)
     }
 
+    fun updateListItemIsDone(hash: String, id: Int) = viewModelScope.launch {
+        repository.updateItemListIsDone(hash, id)
+    }
+
     fun insertOneItemOnList(itemsList: ItemsList) = viewModelScope.launch {
         repository.insertOneItemOnList(itemsList)
     }

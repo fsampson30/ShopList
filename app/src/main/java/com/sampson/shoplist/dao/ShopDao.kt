@@ -35,7 +35,7 @@ interface ShopDao {
     @Query("SELECT * FROM table_list ORDER BY id")
     fun getAllListsAsc(): Flow<MutableList<List>>
 
-    @Query("SELECT l.id, l.item_code, l.item_name, l.list_code, l.quantity, i.category, cast('FALSE' as Boolean) as isDone FROM table_items_list l JOIN table_item i on l.item_code = i.id WHERE l.list_code = :param ORDER BY l.item_name")
+    @Query("SELECT l.id, l.item_code, l.item_name, l.list_code, l.quantity, i.category, l.isDone FROM table_items_list l JOIN table_item i on l.item_code = i.id WHERE l.list_code = :param ORDER BY l.item_name")
     fun getListByCode(param: String): Flow<MutableList<ItemsListCategory>>
 
     @Query("SELECT tl.id, tl.shop_date , 'AA' as list_code, tl.list_name, ( SELECT count(item_code) FROM table_items_list til WHERE tl.list_code = til.list_code ) total_value FROM table_list tl ORDER BY 1")
@@ -46,6 +46,9 @@ interface ShopDao {
 
     @Query("UPDATE table_list SET total_value = :value WHERE list_code = :code")
     suspend fun updateTotalValue(value : Double, code : String)
+
+    @Query("update table_items_list set isDone = NOT isDone where list_code = :hash and item_code = :id")
+    suspend fun updateItemListIsDone(hash : String, id: Int)
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     suspend fun insertAllItems(items: MutableList<Item> = populateItem())
